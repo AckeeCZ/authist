@@ -1,0 +1,8 @@
+{
+  "*.ts": [
+    "prettier --write",
+    "tslint --fix",
+    "npm run lint",
+    "npm test -- --ci --findRelatedTests"
+  ]
+}

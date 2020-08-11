@@ -1,3 +1,3 @@
 export * from './authist';
-export { default as ErrorCode } from './errorCode';
+export { ERROR_CODE } from './error';
 export { verifyToken } from './credentialsService';

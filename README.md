@@ -11,6 +11,14 @@
 
 </div>
 
+# Error codes
+| Code | Message | How to debug / fix |
+|---|---|---|
+| PasswordMismatch | You entered a wrong password! | Did you store password we hashed for you? |
+| UsernameRequired | Username is required field, please enter the username! | :thinking: |
+| PasswordRequired | Password is required field, please enter the password! | :thinking: |
+| UserNotFound | It seems this user doesn't exist, are you sure you entered correct credentials? | Do you want to enable auto registration? Declare `saveNonExistingUser` function |
+
 # 🚧🏗️🚧
 Under heavy development
 

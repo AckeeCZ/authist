@@ -2,6 +2,7 @@ import { sign, verify } from 'jsonwebtoken';
 import { AuthistOptions, Credentials, User } from './authist';
 import { ERROR_CODE, NotAuthenticated } from './error';
 import { handleError } from './providerUtils';
+import { ERROR_CODE, NotAuthenticated } from './error';
 
 export const createCredentials = (user: User, options: AuthistOptions): Credentials => {
     const getPayload = (tokenType: string) => ({

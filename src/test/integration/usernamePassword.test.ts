@@ -17,17 +17,14 @@ describe('UsernamePasswordProvider', () => {
             getUserById,
             usernamePassword: {
                 getUserByUsername,
-                saveNonExistingUser: (data, hashedPassword, _req) =>
-                    userModel.create({ username: data.email, password: hashedPassword }),
+                saveNonExistingUser: (data, hashedPassword, _req) => userModel.create({ username: data.email, password: hashedPassword }),
             },
         });
         const { user, credentials } = await authenticator.signInWithUsernameAndPassword(username, password);
         expect(user).not.toHaveProperty('password');
         expect(user.email).toBe(username);
         expect(user).toHaveProperty('uid');
-        expect(Object.keys(credentials).sort()).toEqual(
-            ['accessToken', 'refreshToken', 'expiresIn', 'refreshExpiresIn'].sort()
-        );
+        expect(Object.keys(credentials).sort()).toEqual(['accessToken', 'refreshToken', 'expiresIn', 'refreshExpiresIn'].sort());
     });
     test('User can sign-in', async () => {
         const authenticator = createAuthenticator({
@@ -46,6 +43,7 @@ describe('UsernamePasswordProvider', () => {
     });
     test('Non-existing user cannot sign-in', async () => {
         const authenticator = createAuthenticator({
+            getUserById,
             usernamePassword: {
                 getUserByUsername,
             },

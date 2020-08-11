@@ -1,5 +1,4 @@
 import { compareSync, hashSync } from 'bcrypt';
-import { RequestHandler } from 'express';
 import { AuthistOptions, User, UserCredentials, UserInfo } from '../authist';
 import { createCredentials } from '../credentialsService';
 import { ERROR_CODE, NotAuthenticated } from '../error';
@@ -30,23 +29,6 @@ export interface UsernamePasswordProviderOptions {
     validateUser?: (data: UserInfo, password: string, req: any) => Promise<void>;
     validateSignIn?: (username: string, password: string, req: any) => Promise<void>;
 }
-
-export const usernamePassword = (options: AuthistOptions): RequestHandler => async (req, res, next) => {
-    const data = { ...req.body, ...req.query };
-    try {
-        if (!data.username) {
-            throw new NotAuthenticated(ERROR_CODE.UsernameRequired);
-        }
-        if (!data.password) {
-            throw new NotAuthenticated(ERROR_CODE.PasswordRequired);
-        }
-        const credentials = await signInWithUsernameAndPassword(options)(data.username, data.password, req);
-        res.status(200);
-        res.json(credentials);
-    } catch (error) {
-        next(error);
-    }
-};
 
 export const signInWithUsernameAndPassword = (options: AuthistOptions) => async (
     username: string,

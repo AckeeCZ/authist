@@ -40,6 +40,7 @@ export interface AuthistOptions {
     onAuthenticationFailure?: (error: Error, req: any) => void;
     sendRegistrationEmail?: (user: User, req: any) => Promise<void>;
     token?: TokenOptions;
+    getUserById: (uid: string) => Promise<User | undefined>;
 }
 
 export interface UserCredentials {

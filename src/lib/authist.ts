@@ -1,3 +1,4 @@
+import { handleBearer } from './handlers/bearerHandler';
 import { handleSignIn } from './handlers/usernamePasswordHandler';
 import { signInWithUsernameAndPassword, UsernamePasswordProviderOptions } from './providers/usernamePasswordProvider';
 
@@ -5,6 +6,7 @@ export const createAuthenticator = (options: AuthistOptions) => ({
     signInWithUsernameAndPassword: signInWithUsernameAndPassword(options),
     http: {
         handleUsernameAndPasswordSignIn: handleSignIn(options),
+        bearer: handleBearer(options),
     },
 });
 

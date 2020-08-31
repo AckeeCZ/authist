@@ -34,6 +34,7 @@ export const verifyToken = async (token: string, options: AuthistOptions) => {
         if (!user) {
             throw new NotAuthenticated(ERROR_CODE.UserNotFound);
         }
+        return user;
     } catch (error) {
         return handleError(error, {}, options);
     }

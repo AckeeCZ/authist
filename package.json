@@ -4,13 +4,10 @@
   "version": "0.1.0",
   "author": "",
   "contributors": [],
-  "main": "./dist/index.js",
+  "main": "./dist/lib/index.js",
   "files": [
     "dist/*"
   ],
-  "engines": {
-    "node": "^12.18.0"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/AckeeCZ/authist"

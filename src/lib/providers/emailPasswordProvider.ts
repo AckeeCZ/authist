@@ -26,7 +26,9 @@ export interface EmailPasswordProviderOptions {
     getUserByEmail: (email: string, req: any) => Promise<(User & { password: string }) | undefined>;
     saveNonExistingUser?: (data: UserInfo, hashedPassword: string, req: any) => Promise<User>;
     sendResetPasswordEmail?: (user: User, req: any) => Promise<void>;
+    /** Validate user before the `saveNonExistingUser` function is called */
     validateUser?: (data: UserInfo, password: string, req: any) => Promise<void>;
+    /** Do custom sign-in validation steps eg. check number of login attempts etc. */
     validateSignIn?: (email: string, password: string, req: any) => Promise<void>;
 }
 

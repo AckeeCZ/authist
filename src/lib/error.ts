@@ -1,15 +1,15 @@
 enum ErrorCode {
     PasswordMismatch = 'You entered a wrong password!',
-    UsernameRequired = 'Username is required field, please enter the username!',
+    EmailRequired = 'Email is required field, please enter the email!',
     PasswordRequired = 'Password is required field, please enter the password!',
-    UserNotFound = 'It seems this user doesn\'t exist, are you sure you entered correct credentials?',
+    UserNotFound = "It seems this user doesn't exist, are you sure you entered correct credentials?",
 }
 
 class GenericError extends Error {
     constructor(
         public readonly message: string,
         public readonly status: number,
-        public readonly errorCode: string = '',
+        public readonly errorCode: string = ''
     ) {
         super(message);
         Object.setPrototypeOf(this, new.target.prototype);

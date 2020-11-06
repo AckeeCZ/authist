@@ -36,6 +36,21 @@ Under heavy development
     - recovery email [ref](https://firebase.google.com/docs/auth/custom-email-handler)
     - verify email [ref](https://firebase.google.com/docs/auth/custom-email-handler)
 
+## Email and password authentication
+
+### Usage
+
+```typescript
+import { createAuthenticator } from 'authist';
+
+const authenticator = createAuthenticator({
+    getUserById: () => Promise.resolve(), // todo: add implementation
+    emailPassword: {
+        getUserByEmail: (email: string) => Promise.resolve(), // todo: add implementation
+    },
+});
+const { user, credentials } = await authenticator.signInWithEmailAndPassword(email, password);
+```
 
 ## License
 

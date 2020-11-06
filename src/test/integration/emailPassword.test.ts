@@ -3,8 +3,8 @@ import { initDb } from '../databaseUtils';
 
 let userModel: any;
 
-describe('UsernamePasswordProvider', () => {
-    const username = 'tester';
+describe('EmailPasswordProvider', () => {
+    const email = 'tester@test.com';
     const password = '***';
     beforeAll(async () => {
         userModel = await initDb();
@@ -15,15 +15,15 @@ describe('UsernamePasswordProvider', () => {
     test('Can auto-register user', async () => {
         const authenticator = createAuthenticator({
             getUserById: () => Promise.resolve(undefined),
-            usernamePassword: {
-                getUserByUsername,
+            emailPassword: {
+                getUserByEmail,
                 saveNonExistingUser: (data, hashedPassword, _req) =>
-                    userModel.create({ username: data.email, password: hashedPassword }),
+                    userModel.create({ email: data.email, password: hashedPassword }),
             },
         });
-        const { user, credentials } = await authenticator.signInWithUsernameAndPassword(username, password);
+        const { user, credentials } = await authenticator.signInWithEmailAndPassword(email, password);
         expect(user).not.toHaveProperty('password');
-        expect(user.email).toBe(username);
+        expect(user.email).toBe(email);
         expect(user).toHaveProperty('uid');
         expect(Object.keys(credentials).sort()).toEqual(
             ['accessToken', 'refreshToken', 'expiresIn', 'refreshExpiresIn'].sort()
@@ -32,13 +32,13 @@ describe('UsernamePasswordProvider', () => {
     test('User can sign-in', async () => {
         const authenticator = createAuthenticator({
             getUserById: () => Promise.resolve(undefined),
-            usernamePassword: {
-                getUserByUsername,
+            emailPassword: {
+                getUserByEmail,
             },
         });
-        const { user, credentials } = await authenticator.signInWithUsernameAndPassword(username, password);
+        const { user, credentials } = await authenticator.signInWithEmailAndPassword(email, password);
         expect(user).not.toHaveProperty('password');
-        expect(user.email).toBe(username);
+        expect(user.email).toBe(email);
         expect(user).toHaveProperty('uid');
         expect(Object.keys(credentials).sort()).toEqual(
             ['accessToken', 'refreshToken', 'expiresIn', 'refreshExpiresIn'].sort()
@@ -47,12 +47,12 @@ describe('UsernamePasswordProvider', () => {
     test('Non-existing user cannot sign-in', async () => {
         const authenticator = createAuthenticator({
             getUserById: () => Promise.resolve(undefined),
-            usernamePassword: {
-                getUserByUsername,
+            emailPassword: {
+                getUserByEmail,
             },
         });
         try {
-            await authenticator.signInWithUsernameAndPassword('username', 'password');
+            await authenticator.signInWithEmailAndPassword('email', 'password');
         } catch (error) {
             expect(error.errorCode).toMatch((ERROR_CODE.UserNotFound as any).code);
             return;
@@ -61,14 +61,14 @@ describe('UsernamePasswordProvider', () => {
     });
 });
 
-const getUserByUsername = async (username: string) => {
-    const user = await userModel.findOne({ where: { username } });
+const getUserByEmail = async (email: string) => {
+    const user = await userModel.findOne({ where: { email } });
     if (!user) {
         return;
     }
     const authistUser: User & { password: string } = {
         password: user.password,
-        email: user.username,
+        email: user.email,
         providerData: {},
         uid: String(user.id),
     };

@@ -9,7 +9,7 @@ const User = sqlite.define('User', {
         autoIncrement: true,
         primaryKey: true,
     },
-    username: {
+    email: {
         type: DataTypes.STRING,
         allowNull: false,
     },

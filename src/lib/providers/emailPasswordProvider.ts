@@ -10,7 +10,7 @@ export enum HashingAlgorithm {
 }
 
 interface SignInParams {
-    username: string;
+    email: string;
     password: string;
     request: any;
 }
@@ -21,32 +21,32 @@ interface ValidatePasswordOptions {
     request: any;
 }
 
-export interface UsernamePasswordProviderOptions {
+export interface EmailPasswordProviderOptions {
     passwordHashingAlgorithm?: HashingAlgorithm;
-    getUserByUsername: (username: string, req: any) => Promise<(User & { password: string }) | undefined>;
+    getUserByEmail: (email: string, req: any) => Promise<(User & { password: string }) | undefined>;
     saveNonExistingUser?: (data: UserInfo, hashedPassword: string, req: any) => Promise<User>;
     sendResetPasswordEmail?: (user: User, req: any) => Promise<void>;
     validateUser?: (data: UserInfo, password: string, req: any) => Promise<void>;
-    validateSignIn?: (username: string, password: string, req: any) => Promise<void>;
+    validateSignIn?: (email: string, password: string, req: any) => Promise<void>;
 }
 
-export const signInWithUsernameAndPassword = (options: AuthistOptions) => async (
-    username: string,
+export const signInWithEmailAndPassword = (options: AuthistOptions) => async (
+    email: string,
     password: string,
     req?: any
 ): Promise<UserCredentials> => {
     try {
-        const usernamePasswordOptions = options.usernamePassword!;
-        let user = await usernamePasswordOptions.getUserByUsername(username, req);
+        const emailPasswordOptions = options.emailPassword!;
+        let user = await emailPasswordOptions.getUserByEmail(email, req);
         if (!user) {
-            if (!usernamePasswordOptions.saveNonExistingUser) {
+            if (!emailPasswordOptions.saveNonExistingUser) {
                 throw new NotAuthenticated(ERROR_CODE.UserNotFound);
             }
-            await validateUser({ username, password, request: req }, options);
-            user = await saveNonExistingUser({ username, password, request: req }, options);
+            await validateUser({ email, password, request: req }, options);
+            user = await saveNonExistingUser({ email, password, request: req }, options);
             await sendRegistrationEmail(user, req, options);
         }
-        await validateSignIn({ username, password, request: req }, options);
+        await validateSignIn({ email, password, request: req }, options);
         await validatePassword({ password, request: req, hashedPassword: user.password }, options);
         const { password: _psw, ...rest } = user;
         const credentials = createCredentials(user, options);
@@ -56,7 +56,7 @@ export const signInWithUsernameAndPassword = (options: AuthistOptions) => async 
     }
 };
 
-export const getHashingAlgorithm = (options?: UsernamePasswordProviderOptions) => {
+export const getHashingAlgorithm = (options?: EmailPasswordProviderOptions) => {
     if (options?.passwordHashingAlgorithm) {
         return options.passwordHashingAlgorithm;
     }
@@ -65,7 +65,7 @@ export const getHashingAlgorithm = (options?: UsernamePasswordProviderOptions) =
 
 export const validatePassword = async (params: ValidatePasswordOptions, options: AuthistOptions) => {
     try {
-        const algorithm = getHashingAlgorithm(options.usernamePassword);
+        const algorithm = getHashingAlgorithm(options.emailPassword);
         if (algorithm === HashingAlgorithm.Plaintext && params.password !== params.hashedPassword) {
             throw new NotAuthenticated(ERROR_CODE.PasswordMismatch);
         }
@@ -79,8 +79,8 @@ export const validatePassword = async (params: ValidatePasswordOptions, options:
 
 export const validateSignIn = async (params: SignInParams, options: AuthistOptions) => {
     try {
-        await (options.usernamePassword?.validateSignIn
-            ? options.usernamePassword.validateSignIn(params.username, params.password, params.request)
+        await (options.emailPassword?.validateSignIn
+            ? options.emailPassword.validateSignIn(params.email, params.password, params.request)
             : Promise.resolve());
     } catch (error) {
         return handleError(error, params.request, options);
@@ -100,19 +100,19 @@ export const saveNonExistingUser = async (
     options: AuthistOptions
 ): Promise<User & { password: string }> => {
     try {
-        const hashedPassword = hashPassword(params.password, options.usernamePassword!);
+        const hashedPassword = hashPassword(params.password, options.emailPassword!);
         const userInfo = getUserInfo(params);
-        await (options.usernamePassword?.saveNonExistingUser
-            ? options.usernamePassword.saveNonExistingUser(userInfo, hashedPassword, params.request)
+        await (options.emailPassword?.saveNonExistingUser
+            ? options.emailPassword.saveNonExistingUser(userInfo, hashedPassword, params.request)
             : Promise.resolve({} as User));
-        const user = await options.usernamePassword?.getUserByUsername(params.username, params.request);
+        const user = await options.emailPassword?.getUserByEmail(params.email, params.request);
         return user!;
     } catch (error) {
         return handleError(error, params.request, options) as any;
     }
 };
 
-const hashPassword = (password: string, options: UsernamePasswordProviderOptions) => {
+const hashPassword = (password: string, options: EmailPasswordProviderOptions) => {
     const algorithm = getHashingAlgorithm(options);
     if (algorithm === HashingAlgorithm.Bcrypt) {
         return hashSync(password, 12);
@@ -123,8 +123,8 @@ const hashPassword = (password: string, options: UsernamePasswordProviderOptions
 export const validateUser = async (params: SignInParams, options: AuthistOptions) => {
     try {
         const userInfo = getUserInfo(params);
-        await (options.usernamePassword?.validateUser
-            ? options.usernamePassword.validateUser(userInfo, params.password, params.request)
+        await (options.emailPassword?.validateUser
+            ? options.emailPassword.validateUser(userInfo, params.password, params.request)
             : Promise.resolve());
     } catch (error) {
         return handleError(error, params.request, options);
@@ -132,5 +132,5 @@ export const validateUser = async (params: SignInParams, options: AuthistOptions
 };
 
 const getUserInfo = (params: SignInParams): UserInfo => ({
-    email: params.username,
+    email: params.email,
 });

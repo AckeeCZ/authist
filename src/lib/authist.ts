@@ -1,7 +1,7 @@
-import { signInWithUsernameAndPassword, UsernamePasswordProviderOptions } from './providers/usernamePasswordProvider';
+import { EmailPasswordProviderOptions, signInWithEmailAndPassword } from './providers/emailPasswordProvider';
 
 export const createAuthenticator = (options: AuthistOptions) => ({
-    signInWithUsernameAndPassword: signInWithUsernameAndPassword(options),
+    signInWithEmailAndPassword: signInWithEmailAndPassword(options),
 });
 
 export interface TokenOptions {
@@ -36,7 +36,7 @@ export interface UserMetadata {
 }
 
 export interface AuthistOptions {
-    usernamePassword?: UsernamePasswordProviderOptions;
+    emailPassword?: EmailPasswordProviderOptions;
     onAuthenticationFailure?: (error: Error, req: any) => void;
     sendRegistrationEmail?: (user: User, req: any) => Promise<void>;
     token?: TokenOptions;

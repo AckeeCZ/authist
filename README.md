@@ -8,6 +8,7 @@
 [![Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/github/AckeeCZ/authist.svg?style=flat-square)](https://snyk.io/test/github/AckeeCZ/authist?targetFile=package.json)
 [![Dependency Status](https://img.shields.io/david/AckeeCZ/authist.svg?style=flat-square)](https://david-dm.org/AckeeCZ/authist)
 [![Dev Dependency Status](https://img.shields.io/david/dev/AckeeCZ/authist.svg?style=flat-square)](https://david-dm.org/AckeeCZ/authist?type=dev)
+[![Pipeline Status](https://github.com/AckeeCZ/authist/workflows/Pipeline/badge.svg)](https://github.com/AckeeCZ/authist/actions)
 
 </div>
 

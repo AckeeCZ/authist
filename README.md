@@ -3,6 +3,7 @@
 
 # Authist
 [![Pipeline Status](https://github.com/AckeeCZ/authist/workflows/Pipeline/badge.svg)](https://github.com/AckeeCZ/authist/actions)
+[![Deploy Status](https://github.com/AckeeCZ/authist/workflows/Deploy/badge.svg)](https://github.com/AckeeCZ/authist/actions)
 [![Coverage](https://img.shields.io/codecov/c/github/AckeeCZ/authist?style=flat-square)](https://codecov.io/gh/AckeeCZ/authist)
 [![Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/github/AckeeCZ/authist.svg?style=flat-square)](https://snyk.io/test/github/AckeeCZ/authist?targetFile=package.json)
 

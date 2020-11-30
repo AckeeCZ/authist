@@ -9,6 +9,8 @@
 
 </div>
 
+- Check our [API documentation](https://ackeecz.github.io/authist/)
+
 # Error codes
 | Code | Message | How to debug / fix |
 |---|---|---|

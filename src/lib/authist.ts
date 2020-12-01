@@ -2,17 +2,20 @@ import { NextFunction, Request, Response } from 'express';
 import { expressBearer } from './authMiddleware';
 import { EmailPasswordProviderOptions, signInWithEmailAndPassword } from './providers/emailPasswordProvider';
 import { FacebookProviderOptions, signInWithFacebook } from './providers/facebookProvider';
+import { GoogleSignInOptions, signInWithGoogle } from './providers/signInWithGoogle';
 
 export const createAuthenticator = (options: AuthistOptions): Authenticator => ({
     expressBearer: expressBearer(options),
     signInWithEmailAndPassword: signInWithEmailAndPassword(options),
     signInWithFacebook: signInWithFacebook(options),
+    signInWithGoogle: signInWithGoogle(options),
 });
 
 export interface Authenticator {
     expressBearer: ReturnType<typeof expressBearer>;
     signInWithEmailAndPassword: ReturnType<typeof signInWithEmailAndPassword>;
     signInWithFacebook: ReturnType<typeof signInWithFacebook>;
+    signInWithGoogle: ReturnType<typeof signInWithGoogle>;
 }
 
 export interface TokenOptions {
@@ -51,6 +54,7 @@ export interface UserMetadata {
 export interface AuthistOptions {
     emailPassword?: EmailPasswordProviderOptions;
     facebook?: FacebookProviderOptions;
+    google?: GoogleSignInOptions;
     onAuthenticationFailure?: (error: Error, req: any) => void;
     onExpressAuthenticationFailure?: (error: Error, req: Request, res: Response, next: NextFunction) => void;
     sendRegistrationEmail?: (user: User, req: any) => Promise<void>;

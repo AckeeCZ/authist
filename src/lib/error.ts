@@ -3,6 +3,8 @@ enum ErrorCode {
     EmailRequired = 'Email is required field, please enter the email!',
     PasswordRequired = 'Password is required field, please enter the password!',
     UserNotFound = "It seems this user doesn't exist, are you sure you entered correct credentials?",
+    AuthenticationRequired = 'You are not authenticated!',
+    UnsupportedAuthorization = 'Unsupported authorization type!',
 }
 
 class GenericError extends Error {

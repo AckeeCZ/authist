@@ -1,14 +1,15 @@
-import { IncomingMessage, ServerResponse } from 'http';
-import { bearer } from './authMiddleware';
+import { NextFunction, Request, Response } from 'express';
+import { IncomingMessage } from 'http';
+import { expressBearer } from './authMiddleware';
 import { EmailPasswordProviderOptions, signInWithEmailAndPassword } from './providers/emailPasswordProvider';
 
 export const createAuthenticator = (options: AuthistOptions): Authenticator => ({
-    bearer: bearer(options),
+    expressBearer: expressBearer(options),
     signInWithEmailAndPassword: signInWithEmailAndPassword(options),
 });
 
 export interface Authenticator {
-    bearer: (request: IncomingMessage, response: ServerResponse) => Promise<any>;
+    expressBearer: (request: Request, response: Response, next: NextFunction) => Promise<any>;
     signInWithEmailAndPassword: (email: string, password: string, req?: IncomingMessage) => Promise<UserCredentials>;
 }
 
@@ -46,6 +47,7 @@ export interface UserMetadata {
 export interface AuthistOptions {
     emailPassword?: EmailPasswordProviderOptions;
     onAuthenticationFailure?: (error: Error, req: any) => void;
+    onExpressAuthenticationFailure?: (error: Error, req: Request, res: Response, next: NextFunction) => void;
     sendRegistrationEmail?: (user: User, req: any) => Promise<void>;
     token?: TokenOptions;
     getUserById: (uid: string) => Promise<User | undefined>;

@@ -1,8 +1,16 @@
+import { IncomingMessage, ServerResponse } from 'http';
+import { bearer } from './authMiddleware';
 import { EmailPasswordProviderOptions, signInWithEmailAndPassword } from './providers/emailPasswordProvider';
 
-export const createAuthenticator = (options: AuthistOptions) => ({
+export const createAuthenticator = (options: AuthistOptions): Authenticator => ({
+    bearer: bearer(options),
     signInWithEmailAndPassword: signInWithEmailAndPassword(options),
 });
+
+export interface Authenticator {
+    bearer: (request: IncomingMessage, response: ServerResponse) => Promise<any>;
+    signInWithEmailAndPassword: (email: string, password: string, req?: IncomingMessage) => Promise<UserCredentials>;
+}
 
 export interface TokenOptions {
     lifetimeMinutes?: number;

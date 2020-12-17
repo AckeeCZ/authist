@@ -1,4 +1,4 @@
-enum ErrorCode {
+export enum ErrorCode {
     PasswordMismatch = 'You entered a wrong password!',
     EmailRequired = 'Email is required field, please enter the email!',
     PasswordRequired = 'Password is required field, please enter the password!',

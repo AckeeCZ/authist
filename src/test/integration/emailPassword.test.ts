@@ -1,5 +1,5 @@
-import { createAuthenticator, ERROR_CODE, User } from '../../lib';
-import { initDb } from '../databaseUtils';
+import { createAuthenticator, ERROR_CODE } from '../../lib';
+import { getUserByEmail, getUserById, initDb } from '../databaseUtils';
 
 let userModel: any;
 
@@ -14,9 +14,9 @@ describe('EmailPasswordProvider', () => {
     });
     test('Can auto-register user', async () => {
         const authenticator = createAuthenticator({
-            getUserById: () => Promise.resolve(undefined),
+            getUserById: getUserById(userModel),
             emailPassword: {
-                getUserByEmail,
+                getUserByEmail: getUserByEmail(userModel),
                 saveNonExistingUser: (data, hashedPassword, _req) =>
                     userModel.create({ email: data.email, password: hashedPassword }),
             },
@@ -33,7 +33,7 @@ describe('EmailPasswordProvider', () => {
         const authenticator = createAuthenticator({
             getUserById: () => Promise.resolve(undefined),
             emailPassword: {
-                getUserByEmail,
+                getUserByEmail: getUserByEmail(userModel),
             },
         });
         const { user, credentials } = await authenticator.signInWithEmailAndPassword(email, password);
@@ -48,7 +48,7 @@ describe('EmailPasswordProvider', () => {
         const authenticator = createAuthenticator({
             getUserById: () => Promise.resolve(undefined),
             emailPassword: {
-                getUserByEmail,
+                getUserByEmail: getUserByEmail(userModel),
             },
         });
         try {
@@ -60,17 +60,3 @@ describe('EmailPasswordProvider', () => {
         throw Error();
     });
 });
-
-const getUserByEmail = async (email: string) => {
-    const user = await userModel.findOne({ where: { email } });
-    if (!user) {
-        return;
-    }
-    const authistUser: User & { password: string } = {
-        password: user.password,
-        email: user.email,
-        providerData: {},
-        uid: String(user.id),
-    };
-    return authistUser;
-};

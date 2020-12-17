@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Bearer authentication middleware Can authorize user 1`] = `
+Object {
+  "email": "tester@test.com",
+  "providerData": Object {},
+  "uid": "1",
+}
+`;
+
+exports[`Bearer authentication middleware Can use onExpressAuthenticationFailure 1`] = `
+Object {
+  "message": "My custom error",
+  "stack": "Error: My custom error
+    at Object.onAuthenticationFailure (/home/stefi/Documents/nodejs/authist/src/test/integration/bearer.test.ts:103:23)
+    at Object.exports.handleError (/home/stefi/Documents/nodejs/authist/src/lib/providerUtils.ts:5:17)
+    at /home/stefi/Documents/nodejs/authist/src/lib/credentialsService.ts:39:16
+    at step (/home/stefi/Documents/nodejs/authist/src/lib/credentialsService.ts:33:23)
+    at Object.next (/home/stefi/Documents/nodejs/authist/src/lib/credentialsService.ts:14:53)
+    at /home/stefi/Documents/nodejs/authist/src/lib/credentialsService.ts:8:71
+    at new Promise (<anonymous>)
+    at __awaiter (/home/stefi/Documents/nodejs/authist/src/lib/credentialsService.ts:4:12)
+    at Object.exports.verifyToken (/home/stefi/Documents/nodejs/authist/src/lib/credentialsService.ts:25:73)
+    at /home/stefi/Documents/nodejs/authist/src/lib/authMiddleware.ts:20:28",
+}
+`;
+
+exports[`Bearer authentication middleware Invalid token return an error 1`] = `"jwt malformed"`;

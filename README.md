@@ -52,6 +52,17 @@ const authenticator = createAuthenticator({
 const { user, credentials } = await authenticator.signInWithEmailAndPassword(email, password);
 ```
 
+#### Express middleware
+
+```typescript
+import express from 'express';
+
+const app = express();
+app.get('/users/me', authenticator.expressBearer, (req, res) => {
+    res.json(req.user);
+});
+```
+
 ## License
 
 This project is licensed under [MIT](./LICENSE).

@@ -17,6 +17,8 @@ export interface TokenOptions {
     lifetimeMinutes?: number;
     refreshLifetimeMinutes?: number;
     jwtSecret?: string;
+    jwtPublicKey?: string;
+    jwtPrivateKey?: string;
 }
 
 export interface User {

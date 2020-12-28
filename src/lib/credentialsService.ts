@@ -27,7 +27,7 @@ export const verifyToken = async (token: string, options: AuthistOptions) => {
         if (!options.getUserById) {
             throw new Error('Function `getUserById` is not implemented!');
         }
-        const secret = getSecret(options);
+        const secret = getSecret(options, true);
         const decodedToken = verify(token, secret) as { user: { uid: string } };
         const { uid } = decodedToken.user;
         const user = await options.getUserById(uid);
@@ -40,9 +40,16 @@ export const verifyToken = async (token: string, options: AuthistOptions) => {
     }
 };
 
-const getSecret = (options: AuthistOptions) => {
+const getSecret = (options: AuthistOptions, verify = false) => {
+    if (verify && options.token?.jwtPublicKey) {
+        return options.token.jwtPublicKey;
+    }
+    if (options.token?.jwtPrivateKey) {
+        return options.token.jwtPrivateKey;
+    }
     if (options.token?.jwtSecret) {
         return options.token.jwtSecret;
     }
+    console.warn('You should set the JWT secret or private / public keys to prevent security breaches.');
     return 'secret';
 };

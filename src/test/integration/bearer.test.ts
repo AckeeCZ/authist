@@ -107,11 +107,12 @@ describe('Bearer authentication middleware', () => {
             },
         });
         const customError = 'My custom error';
-        const { body } = await got<{ error: Error }>(serverUrl, {
+        const { body } = await got<{ message: string }>(serverUrl, {
             responseType: 'json',
             headers: { authorization: 'bearer invalid_token' },
         });
-        expect(body).toMatchSnapshot();
+        expect(Object.keys(body).sort()).toStrictEqual(['message', 'stack'].sort());
+        expect(body.message).toBe(customError);
     });
     test('Can authorize user', async () => {
         const options = getAuthistOptions();

@@ -2,6 +2,7 @@
 
 
 # Authist
+[![NPM version](https://img.shields.io/npm/v/authist)](https://www.npmjs.com/package/authist)
 [![Pipeline Status](https://github.com/AckeeCZ/authist/workflows/Pipeline/badge.svg)](https://github.com/AckeeCZ/authist/actions)
 [![Deploy Status](https://github.com/AckeeCZ/authist/workflows/Deploy/badge.svg)](https://github.com/AckeeCZ/authist/actions)
 [![Coverage](https://img.shields.io/codecov/c/github/AckeeCZ/authist?style=flat-square)](https://codecov.io/gh/AckeeCZ/authist)

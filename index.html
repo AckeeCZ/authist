@@ -71,6 +71,9 @@
 						<a href="https://codecov.io/gh/AckeeCZ/authist"><img src="https://img.shields.io/codecov/c/github/AckeeCZ/authist?style=flat-square" alt="Coverage"></a>
 					<a href="https://snyk.io/test/github/AckeeCZ/authist?targetFile=package.json"><img src="https://img.shields.io/snyk/vulnerabilities/github/AckeeCZ/authist.svg?style=flat-square" alt="Vulnerabilities"></a></p>
 				</div>
+				<ul>
+					<li>Check our <a href="https://ackeecz.github.io/authist/">API documentation</a></li>
+				</ul>
 				<a href="#error-codes" id="error-codes" style="color: inherit; text-decoration: none;">
 					<h1>Error codes</h1>
 				</a>
@@ -141,6 +144,15 @@
     },
 });
 <span class="hljs-keyword">const</span> { user, credentials } = <span class="hljs-keyword">await</span> authenticator.signInWithEmailAndPassword(email, password);</code></pre>
+				<a href="#express-middleware" id="express-middleware" style="color: inherit; text-decoration: none;">
+					<h4>Express middleware</h4>
+				</a>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> express <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;express&#x27;</span>;
+
+<span class="hljs-keyword">const</span> app = express();
+app.get(<span class="hljs-string">&#x27;/users/me&#x27;</span>, authenticator.expressBearer, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+    res.json(req.user);
+});</code></pre>
 				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
 					<h2>License</h2>
 				</a>
@@ -167,6 +179,9 @@
 						<a href="classes/notauthenticated.html" class="tsd-kind-icon">Not<wbr>Authenticated</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="interfaces/authenticator.html" class="tsd-kind-icon">Authenticator</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="interfaces/authistoptions.html" class="tsd-kind-icon">Authist<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
@@ -187,14 +202,23 @@
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/usermetadata.html" class="tsd-kind-icon">User<wbr>Metadata</a>
 					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#bearererror" class="tsd-kind-icon">Bearer<wbr>Error</a>
+					</li>
 					<li class=" tsd-kind-variable">
 						<a href="globals.html#error_code" class="tsd-kind-icon">ERROR_<wbr>CODE</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#bearer" class="tsd-kind-icon">bearer</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#createauthenticator" class="tsd-kind-icon">create<wbr>Authenticator</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#createcredentials" class="tsd-kind-icon">create<wbr>Credentials</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#expressbearer" class="tsd-kind-icon">express<wbr>Bearer</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#getsecret" class="tsd-kind-icon">get<wbr>Secret</a>

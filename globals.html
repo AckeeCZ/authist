@@ -81,6 +81,7 @@
 						<section class="tsd-index-section ">
 							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-interface"><a href="interfaces/authenticator.html" class="tsd-kind-icon">Authenticator</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/authistoptions.html" class="tsd-kind-icon">Authist<wbr>Options</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/credentials.html" class="tsd-kind-icon">Credentials</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/tokenoptions.html" class="tsd-kind-icon">Token<wbr>Options</a></li>
@@ -88,6 +89,12 @@
 								<li class="tsd-kind-interface"><a href="interfaces/usercredentials.html" class="tsd-kind-icon">User<wbr>Credentials</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/userinfo.html" class="tsd-kind-icon">User<wbr>Info</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/usermetadata.html" class="tsd-kind-icon">User<wbr>Metadata</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Type aliases</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-type-alias"><a href="globals.html#bearererror" class="tsd-kind-icon">Bearer<wbr>Error</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -99,8 +106,10 @@
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-function"><a href="globals.html#bearer" class="tsd-kind-icon">bearer</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#createauthenticator" class="tsd-kind-icon">create<wbr>Authenticator</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#createcredentials" class="tsd-kind-icon">create<wbr>Credentials</a></li>
+								<li class="tsd-kind-function"><a href="globals.html#expressbearer" class="tsd-kind-icon">express<wbr>Bearer</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#getsecret" class="tsd-kind-icon">get<wbr>Secret</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#handleerror" class="tsd-kind-icon">handle<wbr>Error</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#maperrorcodevalues" class="tsd-kind-icon">map<wbr>Error<wbr>Code<wbr>Values</a></li>
@@ -111,6 +120,19 @@
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Type aliases</h2>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="bearererror" class="tsd-anchor"></a>
+					<h3>Bearer<wbr>Error</h3>
+					<div class="tsd-signature tsd-kind-icon">Bearer<wbr>Error<span class="tsd-signature-symbol">:</span> <a href="classes/genericerror.html#error" class="tsd-signature-type">Error</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>status<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>statusCode<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>toJSON<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> }</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/AckeeCZ/authist/blob/48fcfa1/src/lib/authMiddleware.ts#L6">src/lib/authMiddleware.ts:6</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Variables</h2>
 				<section class="tsd-panel tsd-member tsd-kind-variable">
 					<a name="error_code" class="tsd-anchor"></a>
@@ -118,7 +140,7 @@
 					<div class="tsd-signature tsd-kind-icon">ERROR_<wbr>CODE<span class="tsd-signature-symbol">:</span> <a href="enums/errorcode.html" class="tsd-signature-type">ErrorCode</a><span class="tsd-signature-symbol"> = mapErrorCodeValues()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/AckeeCZ/authist/blob/311b66b/src/lib/error.ts#L53">src/lib/error.ts:53</a></li>
+							<li>Defined in <a href="https://github.com/AckeeCZ/authist/blob/48fcfa1/src/lib/error.ts#L55">src/lib/error.ts:55</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -126,16 +148,42 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function">
-					<a name="createauthenticator" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> create<wbr>Authenticator</h3>
+					<a name="bearer" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> bearer</h3>
 					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">create<wbr>Authenticator<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="interfaces/authistoptions.html" class="tsd-signature-type">AuthistOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>signInWithEmailAndPassword<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span><span class="tsd-signature-symbol"> }</span></li>
+						<li class="tsd-signature tsd-kind-icon">bearer<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="interfaces/authistoptions.html" class="tsd-signature-type">AuthistOptions</a>, authorization<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="globals.html#bearererror" class="tsd-signature-type">BearerError</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">, </span><a href="interfaces/user.html" class="tsd-signature-type">User</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/AckeeCZ/authist/blob/311b66b/src/lib/authist.ts#L3">src/lib/authist.ts:3</a></li>
+									<li>Defined in <a href="https://github.com/AckeeCZ/authist/blob/48fcfa1/src/lib/authMiddleware.ts#L8">src/lib/authMiddleware.ts:8</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>options: <a href="interfaces/authistoptions.html" class="tsd-signature-type">AuthistOptions</a></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> authorization: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="globals.html#bearererror" class="tsd-signature-type">BearerError</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">, </span><a href="interfaces/user.html" class="tsd-signature-type">User</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="createauthenticator" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> create<wbr>Authenticator</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">create<wbr>Authenticator<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="interfaces/authistoptions.html" class="tsd-signature-type">AuthistOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="interfaces/authenticator.html" class="tsd-signature-type">Authenticator</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/AckeeCZ/authist/blob/48fcfa1/src/lib/authist.ts#L6">src/lib/authist.ts:6</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -144,12 +192,7 @@
 									<h5>options: <a href="interfaces/authistoptions.html" class="tsd-signature-type">AuthistOptions</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>signInWithEmailAndPassword<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span><span class="tsd-signature-symbol"> }</span></h4>
-							<ul class="tsd-parameters">
-								<li class="tsd-parameter">
-									<h5>sign<wbr>InWith<wbr>Email<wbr>And<wbr>Password<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span></h5>
-								</li>
-							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="interfaces/authenticator.html" class="tsd-signature-type">Authenticator</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -163,7 +206,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/AckeeCZ/authist/blob/311b66b/src/lib/credentialsService.ts#L6">src/lib/credentialsService.ts:6</a></li>
+									<li>Defined in <a href="https://github.com/AckeeCZ/authist/blob/48fcfa1/src/lib/credentialsService.ts#L6">src/lib/credentialsService.ts:6</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -180,22 +223,48 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function">
-					<a name="getsecret" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> get<wbr>Secret</h3>
+					<a name="expressbearer" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> express<wbr>Bearer</h3>
 					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Secret<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="interfaces/authistoptions.html" class="tsd-signature-type">AuthistOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">express<wbr>Bearer<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="interfaces/authistoptions.html" class="tsd-signature-type">AuthistOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/AckeeCZ/authist/blob/311b66b/src/lib/credentialsService.ts#L42">src/lib/credentialsService.ts:42</a></li>
+									<li>Defined in <a href="https://github.com/AckeeCZ/authist/blob/48fcfa1/src/lib/authMiddleware.ts#L27">src/lib/authMiddleware.ts:27</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>options: <a href="interfaces/authistoptions.html" class="tsd-signature-type">AuthistOptions</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">(Anonymous function)</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="getsecret" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> get<wbr>Secret</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Secret<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="interfaces/authistoptions.html" class="tsd-signature-type">AuthistOptions</a>, verify<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/AckeeCZ/authist/blob/48fcfa1/src/lib/credentialsService.ts#L43">src/lib/credentialsService.ts:43</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>options: <a href="interfaces/authistoptions.html" class="tsd-signature-type">AuthistOptions</a></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> verify: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -212,7 +281,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/AckeeCZ/authist/blob/311b66b/src/lib/providerUtils.ts#L3">src/lib/providerUtils.ts:3</a></li>
+									<li>Defined in <a href="https://github.com/AckeeCZ/authist/blob/48fcfa1/src/lib/providerUtils.ts#L3">src/lib/providerUtils.ts:3</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -241,7 +310,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/AckeeCZ/authist/blob/311b66b/src/lib/error.ts#L41">src/lib/error.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/AckeeCZ/authist/blob/48fcfa1/src/lib/error.ts#L43">src/lib/error.ts:43</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">typeof </span><a href="enums/errorcode.html" class="tsd-signature-type">ErrorCode</a></h4>
@@ -252,13 +321,13 @@
 					<a name="verifytoken" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> verify<wbr>Token</h3>
 					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">verify<wbr>Token<span class="tsd-signature-symbol">(</span>token<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><a href="interfaces/authistoptions.html" class="tsd-signature-type">AuthistOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">verify<wbr>Token<span class="tsd-signature-symbol">(</span>token<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><a href="interfaces/authistoptions.html" class="tsd-signature-type">AuthistOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="interfaces/user.html" class="tsd-signature-type">User</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/AckeeCZ/authist/blob/311b66b/src/lib/credentialsService.ts#L25">src/lib/credentialsService.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/AckeeCZ/authist/blob/48fcfa1/src/lib/credentialsService.ts#L25">src/lib/credentialsService.ts:25</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -270,7 +339,7 @@
 									<h5>options: <a href="interfaces/authistoptions.html" class="tsd-signature-type">AuthistOptions</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="interfaces/user.html" class="tsd-signature-type">User</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -296,6 +365,9 @@
 						<a href="classes/notauthenticated.html" class="tsd-kind-icon">Not<wbr>Authenticated</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="interfaces/authenticator.html" class="tsd-kind-icon">Authenticator</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="interfaces/authistoptions.html" class="tsd-kind-icon">Authist<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
@@ -316,14 +388,23 @@
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/usermetadata.html" class="tsd-kind-icon">User<wbr>Metadata</a>
 					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#bearererror" class="tsd-kind-icon">Bearer<wbr>Error</a>
+					</li>
 					<li class=" tsd-kind-variable">
 						<a href="globals.html#error_code" class="tsd-kind-icon">ERROR_<wbr>CODE</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#bearer" class="tsd-kind-icon">bearer</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#createauthenticator" class="tsd-kind-icon">create<wbr>Authenticator</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#createcredentials" class="tsd-kind-icon">create<wbr>Credentials</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#expressbearer" class="tsd-kind-icon">express<wbr>Bearer</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#getsecret" class="tsd-kind-icon">get<wbr>Secret</a>

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>TokenOptions | Authist</title>
+	<title>Authenticator | Authist</title>
 	<meta name="description" content="Documentation for Authist">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="tokenoptions.html">TokenOptions</a>
+					<a href="authenticator.html">Authenticator</a>
 				</li>
 			</ul>
-			<h1>Interface TokenOptions</h1>
+			<h1>Interface Authenticator</h1>
 		</div>
 	</div>
 </header>
@@ -68,7 +68,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">TokenOptions</span>
+						<span class="target">Authenticator</span>
 					</li>
 				</ul>
 			</section>
@@ -79,11 +79,8 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="tokenoptions.html#jwtprivatekey" class="tsd-kind-icon">jwt<wbr>Private<wbr>Key</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="tokenoptions.html#jwtpublickey" class="tsd-kind-icon">jwt<wbr>Public<wbr>Key</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="tokenoptions.html#jwtsecret" class="tsd-kind-icon">jwt<wbr>Secret</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="tokenoptions.html#lifetimeminutes" class="tsd-kind-icon">lifetime<wbr>Minutes</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="tokenoptions.html#refreshlifetimeminutes" class="tsd-kind-icon">refresh<wbr>Lifetime<wbr>Minutes</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="authenticator.html#expressbearer" class="tsd-kind-icon">express<wbr>Bearer</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="authenticator.html#signinwithemailandpassword" class="tsd-kind-icon">sign<wbr>InWith<wbr>Email<wbr>And<wbr>Password</a></li>
 							</ul>
 						</section>
 					</div>
@@ -92,54 +89,78 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="jwtprivatekey" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> jwt<wbr>Private<wbr>Key</h3>
-					<div class="tsd-signature tsd-kind-icon">jwt<wbr>Private<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+					<a name="expressbearer" class="tsd-anchor"></a>
+					<h3>express<wbr>Bearer</h3>
+					<div class="tsd-signature tsd-kind-icon">express<wbr>Bearer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>request<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Request</span>, response<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Response</span>, next<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NextFunction</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/AckeeCZ/authist/blob/48fcfa1/src/lib/authist.ts#L21">src/lib/authist.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/AckeeCZ/authist/blob/48fcfa1/src/lib/authist.ts#L12">src/lib/authist.ts:12</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-signature">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>request<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Request</span>, response<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Response</span>, next<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NextFunction</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>request: <span class="tsd-signature-type">Request</span></h5>
+											</li>
+											<li>
+												<h5>response: <span class="tsd-signature-type">Response</span></h5>
+											</li>
+											<li>
+												<h5>next: <span class="tsd-signature-type">NextFunction</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="jwtpublickey" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> jwt<wbr>Public<wbr>Key</h3>
-					<div class="tsd-signature tsd-kind-icon">jwt<wbr>Public<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+					<a name="signinwithemailandpassword" class="tsd-anchor"></a>
+					<h3>sign<wbr>InWith<wbr>Email<wbr>And<wbr>Password</h3>
+					<div class="tsd-signature tsd-kind-icon">sign<wbr>InWith<wbr>Email<wbr>And<wbr>Password<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>email<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, password<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, req<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">IncomingMessage</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="usercredentials.html" class="tsd-signature-type">UserCredentials</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/AckeeCZ/authist/blob/48fcfa1/src/lib/authist.ts#L20">src/lib/authist.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/AckeeCZ/authist/blob/48fcfa1/src/lib/authist.ts#L13">src/lib/authist.ts:13</a></li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="jwtsecret" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> jwt<wbr>Secret</h3>
-					<div class="tsd-signature tsd-kind-icon">jwt<wbr>Secret<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/AckeeCZ/authist/blob/48fcfa1/src/lib/authist.ts#L19">src/lib/authist.ts:19</a></li>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-signature">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>email<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, password<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, req<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">IncomingMessage</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="usercredentials.html" class="tsd-signature-type">UserCredentials</a><span class="tsd-signature-symbol">&gt;</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>email: <span class="tsd-signature-type">string</span></h5>
+											</li>
+											<li>
+												<h5>password: <span class="tsd-signature-type">string</span></h5>
+											</li>
+											<li>
+												<h5><span class="tsd-flag ts-flagOptional">Optional</span> req: <span class="tsd-signature-type">IncomingMessage</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="usercredentials.html" class="tsd-signature-type">UserCredentials</a><span class="tsd-signature-symbol">&gt;</span></h4>
+									</li>
+								</ul>
+							</li>
 						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="lifetimeminutes" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> lifetime<wbr>Minutes</h3>
-					<div class="tsd-signature tsd-kind-icon">lifetime<wbr>Minutes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/AckeeCZ/authist/blob/48fcfa1/src/lib/authist.ts#L17">src/lib/authist.ts:17</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="refreshlifetimeminutes" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> refresh<wbr>Lifetime<wbr>Minutes</h3>
-					<div class="tsd-signature tsd-kind-icon">refresh<wbr>Lifetime<wbr>Minutes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/AckeeCZ/authist/blob/48fcfa1/src/lib/authist.ts#L18">src/lib/authist.ts:18</a></li>
-						</ul>
-					</aside>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -162,39 +183,30 @@
 					<li class=" tsd-kind-class">
 						<a href="../classes/notauthenticated.html" class="tsd-kind-icon">Not<wbr>Authenticated</a>
 					</li>
-					<li class=" tsd-kind-interface">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface">
 						<a href="authenticator.html" class="tsd-kind-icon">Authenticator</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="authenticator.html#expressbearer" class="tsd-kind-icon">express<wbr>Bearer</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="authenticator.html#signinwithemailandpassword" class="tsd-kind-icon">sign<wbr>InWith<wbr>Email<wbr>And<wbr>Password</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-interface">
 						<a href="authistoptions.html" class="tsd-kind-icon">Authist<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="credentials.html" class="tsd-kind-icon">Credentials</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-interface">
+					<li class=" tsd-kind-interface">
 						<a href="tokenoptions.html" class="tsd-kind-icon">Token<wbr>Options</a>
-						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="tokenoptions.html#jwtprivatekey" class="tsd-kind-icon">jwt<wbr>Private<wbr>Key</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="tokenoptions.html#jwtpublickey" class="tsd-kind-icon">jwt<wbr>Public<wbr>Key</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="tokenoptions.html#jwtsecret" class="tsd-kind-icon">jwt<wbr>Secret</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="tokenoptions.html#lifetimeminutes" class="tsd-kind-icon">lifetime<wbr>Minutes</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="tokenoptions.html#refreshlifetimeminutes" class="tsd-kind-icon">refresh<wbr>Lifetime<wbr>Minutes</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-interface">
 						<a href="user.html" class="tsd-kind-icon">User</a>
 					</li>

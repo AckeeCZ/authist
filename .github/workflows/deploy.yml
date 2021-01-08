@@ -3,25 +3,18 @@ on:
   push:
     tags: [ '*' ]
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ['10', '12', '14']
     name: Node ${{ matrix.node }}
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.2
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 14
           registry-url: 'https://registry.npmjs.org'
       - run: npm install
-      - run: npm audit --only=prod --audit-level=high
-      - run: npm run lint
       - run: npm run build
-      - run: npm run test:coverage
-      - run: npm run test:codecov
       - run: npm run docs
       - name: Deploy docs to GH pages
         uses: peaceiris/actions-gh-pages@v3

@@ -2,14 +2,7 @@ import express from 'express';
 import got from 'got';
 import { Server } from 'http';
 import { AddressInfo } from 'net';
-import {
-    AuthistOptions,
-    createAuthenticator,
-    ErrorCode,
-    saveNonExistingUser,
-    signInWithEmailAndPassword,
-    User,
-} from '../../lib';
+import { AuthistOptions, createAuthenticator, emailPasswordProvider, ErrorCode, User } from '../../lib';
 import { getUserByEmail, getUserById, initDb } from '../databaseUtils';
 
 let userModel: any;
@@ -36,7 +29,10 @@ describe('Bearer authentication middleware', () => {
     const password = '***';
     beforeAll(async () => {
         userModel = await initDb();
-        const user = await saveNonExistingUser({ email, password, request: {} }, getAuthistOptions());
+        const user = await emailPasswordProvider.saveNonExistingUser(
+            { email, password, request: {} },
+            getAuthistOptions()
+        );
         expect(user).not.toBeNull();
     });
     afterEach(() => app.close());
@@ -117,7 +113,7 @@ describe('Bearer authentication middleware', () => {
     test('Can authorize user', async () => {
         const options = getAuthistOptions();
         const serverUrl = startServer(options);
-        const { credentials } = await signInWithEmailAndPassword(options)(email, password);
+        const { credentials } = await emailPasswordProvider.signInWithEmailAndPassword(options)(email, password);
         const { body } = await got<User & { password?: string }>(serverUrl, {
             responseType: 'json',
             headers: { authorization: `Bearer ${credentials.accessToken}` },

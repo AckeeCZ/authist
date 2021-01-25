@@ -2,7 +2,7 @@ import { compareSync, hashSync } from 'bcrypt';
 import { AuthistOptions, User, UserCredentials, UserInfo } from '../authist';
 import { createCredentials } from '../credentialsService';
 import { ERROR_CODE, NotAuthenticated } from '../error';
-import { handleError } from '../providerUtils';
+import { handleError, sendRegistrationEmail } from '../providerUtils';
 
 export enum HashingAlgorithm {
     Bcrypt = 'bcrypt',
@@ -86,14 +86,6 @@ export const validateSignIn = async (params: SignInParams, options: AuthistOptio
             : Promise.resolve());
     } catch (error) {
         return handleError(error, params.request, options);
-    }
-};
-
-export const sendRegistrationEmail = async (user: User, request: any, options: AuthistOptions) => {
-    try {
-        await (options.sendRegistrationEmail ? options.sendRegistrationEmail(user, request) : Promise.resolve());
-    } catch (error) {
-        return handleError(error, request, options);
     }
 };
 

@@ -64,6 +64,26 @@ app.get('/users/me', authenticator.expressBearer, (req, res) => {
 });
 ```
 
+## Instagram authentication
+
+- The `signInWithInstagram` method takes `token` parameter that is [Facebook access token](https://developers.facebook.com/docs/facebook-login/access-tokens/) you will get it on the [frontend side](https://developers.facebook.com/docs/facebook-login/)
+- Your Facebook access token must have the [`email` permission](https://developers.facebook.com/docs/permissions/reference/email) assigned to successfully get the user's email
+
+### Usage
+
+```typescript
+import { createAuthenticator } from 'authist';
+
+const authenticator = createAuthenticator({
+    getUserById: () => Promise.resolve(), // todo: add implementation
+    instagram: {
+        getUserByEmail: (email: string) => Promise.resolve(), // todo: add implementation
+        graphApiVersion: 'v9.0',
+    },
+});
+const { user, credentials } = await authenticator.signInWithInstagram(accessToken);
+```
+
 ## License
 
 This project is licensed under [MIT](./LICENSE).

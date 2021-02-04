@@ -1,18 +1,18 @@
 import { NextFunction, Request, Response } from 'express';
 import { expressBearer } from './authMiddleware';
 import { EmailPasswordProviderOptions, signInWithEmailAndPassword } from './providers/emailPasswordProvider';
-import { InstagramProviderOptions, signInWithInstagram } from './providers/instagramProvider';
+import { FacebookProviderOptions, signInWithFacebook } from './providers/facebookProvider';
 
 export const createAuthenticator = (options: AuthistOptions): Authenticator => ({
     expressBearer: expressBearer(options),
     signInWithEmailAndPassword: signInWithEmailAndPassword(options),
-    signInWithInstagram: signInWithInstagram(options),
+    signInWithFacebook: signInWithFacebook(options),
 });
 
 export interface Authenticator {
     expressBearer: ReturnType<typeof expressBearer>;
     signInWithEmailAndPassword: ReturnType<typeof signInWithEmailAndPassword>;
-    signInWithInstagram: ReturnType<typeof signInWithInstagram>;
+    signInWithFacebook: ReturnType<typeof signInWithFacebook>;
 }
 
 export interface TokenOptions {
@@ -50,7 +50,7 @@ export interface UserMetadata {
 
 export interface AuthistOptions {
     emailPassword?: EmailPasswordProviderOptions;
-    instagram?: InstagramProviderOptions;
+    facebook?: FacebookProviderOptions;
     onAuthenticationFailure?: (error: Error, req: any) => void;
     onExpressAuthenticationFailure?: (error: Error, req: Request, res: Response, next: NextFunction) => void;
     sendRegistrationEmail?: (user: User, req: any) => Promise<void>;

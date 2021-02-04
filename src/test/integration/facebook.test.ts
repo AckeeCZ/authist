@@ -1,17 +1,17 @@
 import { createAuthenticator, ERROR_CODE } from '../../lib';
 import { getUserByEmail, getUserById, initDb } from '../databaseUtils';
-import { getInstagramMock } from '../instagramMock';
+import { getFacebookMock } from '../facebookMock';
 
 let userModel: any;
 
-export const INSTAGRAM_USER_EMAIL = 'test@instagram.com';
-export const INSTAGRAM_V9 = 'v9.0';
-export const INSTAGRAM_V8 = 'v8.0';
+export const FACEBOOK_USER_EMAIL = 'test@facebook.com';
+export const GRAPH_API_V9 = 'v9.0';
+export const GRAPH_API_V8 = 'v8.0';
 
-describe('InstagramProvider', () => {
-    const token = 'my-instagram-token';
+describe('FacebookProvider', () => {
+    const token = 'my-facebook-token';
     beforeAll(async () => {
-        getInstagramMock();
+        getFacebookMock();
         userModel = await initDb();
     });
     afterAll(async () => {
@@ -20,14 +20,14 @@ describe('InstagramProvider', () => {
     test('Can auto-register user', async () => {
         const authenticator = createAuthenticator({
             getUserById: getUserById(userModel),
-            instagram: {
+            facebook: {
                 getUserByEmail: getUserByEmail(userModel),
-                graphApiVersion: INSTAGRAM_V9,
-                saveNonExistingUser: (data, _instagramUser) => userModel.create({ email: data.email, password: '' }),
+                graphApiVersion: GRAPH_API_V9,
+                saveNonExistingUser: (data, _fbUser) => userModel.create({ email: data.email, password: '' }),
             },
         });
-        const { user, credentials } = await authenticator.signInWithInstagram(token);
-        expect(user.email).toBe(INSTAGRAM_USER_EMAIL);
+        const { user, credentials } = await authenticator.signInWithFacebook(token);
+        expect(user.email).toBe(FACEBOOK_USER_EMAIL);
         expect(Object.keys(user).sort()).toEqual(['password', 'email', 'uid', 'providerData'].sort());
         expect(Object.keys(credentials).sort()).toEqual(
             ['accessToken', 'refreshToken', 'expiresIn', 'refreshExpiresIn'].sort()
@@ -36,13 +36,13 @@ describe('InstagramProvider', () => {
     test('User can sign-in', async () => {
         const authenticator = createAuthenticator({
             getUserById: () => Promise.resolve(undefined),
-            instagram: {
+            facebook: {
                 getUserByEmail: getUserByEmail(userModel),
-                graphApiVersion: INSTAGRAM_V9,
+                graphApiVersion: GRAPH_API_V9,
             },
         });
-        const { user, credentials } = await authenticator.signInWithInstagram(token);
-        expect(user.email).toBe(INSTAGRAM_USER_EMAIL);
+        const { user, credentials } = await authenticator.signInWithFacebook(token);
+        expect(user.email).toBe(FACEBOOK_USER_EMAIL);
         expect(Object.keys(user).sort()).toEqual(['password', 'email', 'uid', 'providerData'].sort());
         expect(Object.keys(credentials).sort()).toEqual(
             ['accessToken', 'refreshToken', 'expiresIn', 'refreshExpiresIn'].sort()
@@ -51,13 +51,13 @@ describe('InstagramProvider', () => {
     test('Non-existing user cannot sign-in', async () => {
         const authenticator = createAuthenticator({
             getUserById: () => Promise.resolve(undefined),
-            instagram: {
-                graphApiVersion: INSTAGRAM_V8,
+            facebook: {
+                graphApiVersion: GRAPH_API_V8,
                 getUserByEmail: getUserByEmail(userModel),
             },
         });
         try {
-            await authenticator.signInWithInstagram('non-existing-token');
+            await authenticator.signInWithFacebook('non-existing-token');
         } catch (error) {
             expect(error.errorCode).toMatch((ERROR_CODE.UserNotFound as any).code);
             return;

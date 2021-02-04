@@ -4,38 +4,38 @@ import { createCredentials } from '../credentialsService';
 import { ERROR_CODE, NotAuthenticated } from '../error';
 import { handleError, sendRegistrationEmail } from '../providerUtils';
 
-export const INSTAGRAM_BASE_URL = 'https://graph.facebook.com';
+export const FACEBOOK_BASE_URL = 'https://graph.facebook.com';
 
-export interface InstagramUser {
+export interface FacebookUser {
     id: string;
     email: string;
     name?: string;
 }
 
-export interface InstagramProviderOptions {
-    getUserByEmail: (email: string, instagramUser: any) => Promise<User | undefined>;
+export interface FacebookProviderOptions {
+    getUserByEmail: (email: string, facebookUser: any) => Promise<User | undefined>;
     graphApiVersion: string;
     fields?: string[];
-    saveNonExistingUser?: (data: UserInfo, instagramUser: any) => Promise<User>;
+    saveNonExistingUser?: (data: UserInfo, facebookUser: any) => Promise<User>;
 }
 
-export const signInWithInstagram = (options: AuthistOptions) => async (
+export const signInWithFacebook = (options: AuthistOptions) => async (
     token: string,
     req?: any
 ): Promise<UserCredentials> => {
     try {
-        const instagramOptions = options.instagram!;
-        const fields = getFields(instagramOptions.fields);
-        const { body } = await got<InstagramUser>(`${INSTAGRAM_BASE_URL}/${instagramOptions.graphApiVersion}/me`, {
+        const fbOptions = options.facebook!;
+        const fields = getFields(fbOptions.fields);
+        const { body } = await got<FacebookUser>(`${FACEBOOK_BASE_URL}/${fbOptions.graphApiVersion}/me`, {
             searchParams: {
                 fields,
                 access_token: token,
             },
             responseType: 'json',
         });
-        let user = await instagramOptions.getUserByEmail(body.email, body);
+        let user = await fbOptions.getUserByEmail(body.email, body);
         if (!user) {
-            if (!instagramOptions.saveNonExistingUser) {
+            if (!fbOptions.saveNonExistingUser) {
                 throw new NotAuthenticated(ERROR_CODE.UserNotFound);
             }
             user = await saveNonExistingUser(body, req, options);
@@ -55,23 +55,23 @@ const getFields = (fields: string[] = []) => {
     return fields.join();
 };
 
-export const saveNonExistingUser = async (params: InstagramUser, req: any, options: AuthistOptions) => {
+export const saveNonExistingUser = async (params: FacebookUser, req: any, options: AuthistOptions) => {
     try {
         const userInfo = getUserInfo(params);
-        await (options.instagram?.saveNonExistingUser
-            ? options.instagram.saveNonExistingUser(userInfo, params)
+        await (options.facebook?.saveNonExistingUser
+            ? options.facebook.saveNonExistingUser(userInfo, params)
             : Promise.resolve({} as User));
-        const user = await options.instagram!.getUserByEmail(params.email, params);
+        const user = await options.facebook!.getUserByEmail(params.email, params);
         return user!;
     } catch (error) {
         return handleError(error, req, options);
     }
 };
 
-const getUserInfo = (params: InstagramUser): UserInfo => {
-    const { id, email, name, ...instaUser } = params;
+const getUserInfo = (params: FacebookUser): UserInfo => {
+    const { id, email, name, ...fbUser } = params;
     return {
-        ...instaUser,
+        ...fbUser,
         email,
         providerId: id,
         displayName: name,

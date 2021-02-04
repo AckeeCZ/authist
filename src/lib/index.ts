@@ -14,3 +14,4 @@ export { BearerError, bearer, expressBearer } from './authMiddleware';
 export { verifyToken, createCredentials } from './credentialsService';
 export * as emailPasswordProvider from './providers/emailPasswordProvider';
 export * as facebookProvider from './providers/facebookProvider';
+export * as googleProvider from './providers/googleProvider';

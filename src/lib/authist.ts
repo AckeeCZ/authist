@@ -1,26 +1,35 @@
 import { NextFunction, Request, Response } from 'express';
-import { expressBearer, expressRefreshToken } from './authMiddleware';
+import { expressBearer, expressChangePassword, expressRefreshToken, expressResetPassword } from './authMiddleware';
 import { refreshToken } from './credentialsService';
 import { EmailPasswordProviderOptions, signInWithEmailAndPassword } from './providers/emailPasswordProvider';
 import { FacebookProviderOptions, signInWithFacebook } from './providers/facebookProvider';
 import { GoogleSignInOptions, signInWithGoogle } from './providers/googleProvider';
+import { changePassword, resetPassword } from './resetPasswordService';
 
 export const createAuthenticator = (options: AuthistOptions): Authenticator => ({
     expressBearer: expressBearer(options),
     expressRefreshToken: expressRefreshToken(options),
+    expressResetPassword: expressResetPassword(options),
+    expressChangePassword: expressChangePassword(options),
     signInWithEmailAndPassword: signInWithEmailAndPassword(options),
     signInWithFacebook: signInWithFacebook(options),
     signInWithGoogle: signInWithGoogle(options),
     refreshToken: refreshToken(options),
+    resetPassword: resetPassword(options),
+    changePassword: changePassword(options),
 });
 
 export interface Authenticator {
     expressBearer: ReturnType<typeof expressBearer>;
     expressRefreshToken: ReturnType<typeof expressRefreshToken>;
+    expressResetPassword: ReturnType<typeof expressResetPassword>;
+    expressChangePassword: ReturnType<typeof expressChangePassword>;
     signInWithEmailAndPassword: ReturnType<typeof signInWithEmailAndPassword>;
     signInWithFacebook: ReturnType<typeof signInWithFacebook>;
     signInWithGoogle: ReturnType<typeof signInWithGoogle>;
     refreshToken: ReturnType<typeof refreshToken>;
+    resetPassword: ReturnType<typeof resetPassword>;
+    changePassword: ReturnType<typeof changePassword>;
 }
 
 export interface TokenOptions {

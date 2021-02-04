@@ -84,6 +84,25 @@ const authenticator = createAuthenticator({
 const { user, credentials } = await authenticator.signInWithFacebook(accessToken);
 ```
 
+## Google authentication
+
+- The `signInWithGoogle` method takes `token` parameter that is [Google access token](https://developers.google.com/identity/protocols/oauth2)
+- Your Google access token must have the [`email` scope](https://developers.google.com/people/api/rest/v1/people/get) assigned to successfully get the user's email
+
+### Usage
+
+```typescript
+import { createAuthenticator } from 'authist';
+
+const authenticator = createAuthenticator({
+    getUserById: () => Promise.resolve(), // todo: add implementation
+    google: {
+        getUserByEmail: (email: string) => Promise.resolve(), // todo: add implementation
+    },
+});
+const { user, credentials } = await authenticator.signInWithGoogle(accessToken);
+```
+
 ## License
 
 This project is licensed under [MIT](./LICENSE).

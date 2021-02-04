@@ -3,7 +3,8 @@ import got from 'got';
 import { Server } from 'http';
 import { AddressInfo } from 'net';
 import { AuthistOptions, createAuthenticator, emailPasswordProvider, ErrorCode, User } from '../../lib';
-import { getUserByEmail, getUserById, initDb } from '../databaseUtils';
+import { HashingAlgorithm } from '../../lib/providers/emailPasswordProvider';
+import { getUserByEmail, getUserById, initDb, updateUser } from '../databaseUtils';
 
 let userModel: any;
 let app: Server;
@@ -133,4 +134,82 @@ describe('Bearer authentication middleware', () => {
         });
         expect(Object.keys(body).sort()).toStrictEqual(['user', 'credentials'].sort());
     });
+    describe('Reset password', () => {
+        let token: string;
+        const startResetPasswordServer = (options: AuthistOptions) => {
+            const authenticator = getAuthenticator(options);
+            const server = express();
+            server.get('/', async (req: any, res) => {
+                const data = { ...req.body, ...req.query };
+                const credentials = await authenticator.signInWithEmailAndPassword(data.email, data.password, req);
+                res.json(credentials);
+            });
+            server.get('/reset-password', authenticator.expressResetPassword);
+            server.get('/change-password', authenticator.expressChangePassword);
+            app = server.listen(0);
+            return `http://0.0.0.0:${(app.address()! as AddressInfo).port}`;
+        };
+        afterEach(() => app.close());
+        test('User can reset password', async () => {
+            const serverUrl = startResetPasswordServer(getResetPasswordOptions());
+            const { body } = await got<{ token: string }>(`${serverUrl}/reset-password`, {
+                searchParams: { email },
+                responseType: 'json',
+            });
+            expect(body.token).toBeTruthy();
+            expect(body.token.length).toBeGreaterThan(0);
+            token = body.token;
+        });
+        test('Non-existing user cannot reset password', async () => {
+            try {
+                const serverUrl = startResetPasswordServer(getResetPasswordOptions());
+                await got(`${serverUrl}/reset-password`, {
+                    searchParams: { token: 'bad-token' },
+                });
+                throw new Error('Expected to throw');
+            } catch (error) {
+                expect(error.response.statusCode).toBe(401);
+            }
+        });
+        test('User can change password', async () => {
+            const url = startResetPasswordServer(getChangePasswordOptions());
+            const psw = 'newPassword';
+            await got(`${url}/change-password`, {
+                searchParams: { token, password: psw },
+            });
+            const { body } = await got<{ user: User }>(url, {
+                searchParams: { email, password: psw },
+                responseType: 'json',
+            });
+            expect(Object.keys(body).sort()).toStrictEqual(['user', 'credentials'].sort());
+            expect(body.user.email).toBe(email);
+        });
+        test('Non-existing user cannot change password', async () => {
+            try {
+                const url = startResetPasswordServer(getChangePasswordOptions());
+                await got(`${url}/change-password`, {
+                    searchParams: { password, token: 'bad-token' },
+                });
+                throw new Error('Expected to throw');
+            } catch (error) {
+                expect(error.response.statusCode).toBe(400);
+            }
+        });
+    });
+});
+
+const getResetPasswordOptions = () => ({
+    getUserById: getUserById(userModel),
+    emailPassword: {
+        getUserByEmail: getUserByEmail(userModel),
+    },
+});
+
+const getChangePasswordOptions = () => ({
+    getUserById: getUserById(userModel),
+    emailPassword: {
+        getUserByEmail: getUserByEmail(userModel),
+        passwordHashingAlgorithm: HashingAlgorithm.Plaintext,
+        updatePassword: (password: string, user: User) => updateUser(userModel)({ password }, user),
+    },
 });

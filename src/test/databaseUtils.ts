@@ -53,3 +53,14 @@ export const getUserById = (model: any) => async (id: string) => {
     };
     return authistUser;
 };
+
+export const updateUser = (model: any) => async (data: { password?: string }, user: User) => {
+    const foundUser = await model.findOne({ where: { id: Number(user.uid) } });
+    if (!foundUser) {
+        return;
+    }
+    if (data.password) {
+        foundUser.password = data.password;
+    }
+    await foundUser.save();
+};

@@ -1,5 +1,7 @@
-import { createAuthenticator, ERROR_CODE } from '../../lib';
-import { getUserByEmail, getUserById, initDb } from '../databaseUtils';
+import { createAuthenticator, ERROR_CODE, User } from '../../lib';
+import { HashingAlgorithm } from '../../lib/providers/emailPasswordProvider';
+import { getResetToken } from '../../lib/resetPasswordService';
+import { getUserByEmail, getUserById, initDb, updateUser } from '../databaseUtils';
 
 let userModel: any;
 
@@ -59,4 +61,89 @@ describe('EmailPasswordProvider', () => {
         }
         throw Error();
     });
+    describe('Reset password', () => {
+        let resetToken: string;
+        test('User can reset password', async () => {
+            const authenticator = getResetPasswordAuthenticator();
+            const { token } = await authenticator.resetPassword(email);
+            expect(token).toBeTruthy();
+            expect(token.length).toBeGreaterThan(0);
+            resetToken = token;
+        });
+        test('Non-existing user cannot reset password', async () => {
+            const authenticator = getResetPasswordAuthenticator();
+            try {
+                await authenticator.resetPassword('non-existing@test.com');
+                throw new Error('Expected to throw');
+            } catch (error) {
+                expect(error.message).toMatch((ERROR_CODE.UserNotFound as any).message);
+            }
+        });
+        test('User can change password', async () => {
+            const password = 'myNewStrongPassword';
+            const authenticator = getChangePasswordAuthenticator();
+            await authenticator.changePassword(resetToken, password);
+            const credentials = await authenticator.signInWithEmailAndPassword(email, password);
+            expect(Object.keys(credentials).sort()).toStrictEqual(['credentials', 'user'].sort());
+        });
+        test('Non-existing user cannot change password', async () => {
+            const authenticator = getChangePasswordAuthenticator();
+            try {
+                const options = getChangePasswordOptions();
+                const token = await getResetToken(options, { email: 'bad@user.app' } as any);
+                await authenticator.changePassword(token, 'newPassword');
+                throw new Error('Expected to throw');
+            } catch (error) {
+                expect(error.message).toMatch((ERROR_CODE.UserNotFound as any).message);
+            }
+        });
+        test("Change password does not work when it's not implemented", async () => {
+            const authenticator = createAuthenticator({
+                getUserById: getUserById(userModel),
+                emailPassword: {
+                    getUserByEmail: getUserByEmail(userModel),
+                    passwordHashingAlgorithm: HashingAlgorithm.Plaintext,
+                },
+            });
+            const auth = createAuthenticator({
+                getUserById: getUserById(userModel),
+                emailPassword: {
+                    getUserByEmail: getUserByEmail(userModel),
+                    passwordHashingAlgorithm: HashingAlgorithm.Plaintext,
+                    updatePassword: (password, user) => updateUser(userModel)({ password }, user),
+                },
+            });
+            try {
+                await authenticator.changePassword('token', password);
+                throw new Error('Expected to throw');
+            } catch (error) {
+                expect(error.message).toBe((ERROR_CODE.UpdatePasswordNotImplemented as any).message);
+            }
+            try {
+                await auth.changePassword('token', password);
+                throw new Error('Expected to throw');
+            } catch (error) {
+                expect(error.message).toMatch(/jwt malformed/);
+            }
+        });
+    });
+});
+
+const getResetPasswordAuthenticator = () =>
+    createAuthenticator({
+        getUserById: getUserById(userModel),
+        emailPassword: {
+            getUserByEmail: getUserByEmail(userModel),
+        },
+    });
+
+const getChangePasswordAuthenticator = () => createAuthenticator(getChangePasswordOptions());
+
+const getChangePasswordOptions = () => ({
+    getUserById: getUserById(userModel),
+    emailPassword: {
+        getUserByEmail: getUserByEmail(userModel),
+        passwordHashingAlgorithm: HashingAlgorithm.Plaintext,
+        updatePassword: (password: string, user: User) => updateUser(userModel)({ password }, user),
+    },
 });

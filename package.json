@@ -16,7 +16,7 @@
   "keywords": [],
   "scripts": {
     "build": "tsc",
-    "test": "jest --detectOpenHandles --forceExit",
+    "test": "jest --detectOpenHandles --runInBand --forceExit",
     "test:coverage": "npm run test -- --collectCoverage",
     "test:codecov": "codecov",
     "lint": "tslint -t codeFrame -p .",

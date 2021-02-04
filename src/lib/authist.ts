@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { expressBearer } from './authMiddleware';
 import { EmailPasswordProviderOptions, signInWithEmailAndPassword } from './providers/emailPasswordProvider';
 import { FacebookProviderOptions, signInWithFacebook } from './providers/facebookProvider';
-import { GoogleSignInOptions, signInWithGoogle } from './providers/signInWithGoogle';
+import { GoogleSignInOptions, signInWithGoogle } from './providers/googleProvider';
 
 export const createAuthenticator = (options: AuthistOptions): Authenticator => ({
     expressBearer: expressBearer(options),

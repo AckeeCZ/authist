@@ -40,7 +40,7 @@ export const verifyToken = async (token: string, options: AuthistOptions) => {
     }
 };
 
-const getSecret = (options: AuthistOptions, verify = false) => {
+export const getSecret = (options: AuthistOptions, verify = false) => {
     if (verify && options.token?.jwtPublicKey) {
         return options.token.jwtPublicKey;
     }

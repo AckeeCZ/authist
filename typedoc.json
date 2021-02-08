@@ -1,7 +1,5 @@
 {
-    "includeDeclarations": true,
     "excludeExternals": true,
     "name": "Authist",
-    "mode": "file",
     "out": "docs"
 }

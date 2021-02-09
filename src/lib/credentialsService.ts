@@ -53,3 +53,9 @@ const getSecret = (options: AuthistOptions, verify = false) => {
     console.warn('You should set the JWT secret or private / public keys to prevent security breaches.');
     return 'secret';
 };
+
+export const refreshToken = (options: AuthistOptions) => async (refreshToken: string) => {
+    const user = await verifyToken(refreshToken, options);
+    const credentials = await createCredentials(user, options);
+    return { credentials, user };
+};

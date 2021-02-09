@@ -14,6 +14,7 @@ describe('Bearer authentication middleware', () => {
         const authenticator = getAuthenticator(options);
         const server = express();
         server.get('/', authenticator.expressBearer, (req: any, res) => res.json(req.user));
+        server.get('/refresh-token', authenticator.expressRefreshToken);
         app = server.listen(0);
         return `http://0.0.0.0:${(app.address()! as AddressInfo).port}`;
     };
@@ -121,5 +122,15 @@ describe('Bearer authentication middleware', () => {
         expect(body.password).toBeUndefined();
         expect(body.email).toBe(email);
         expect(body).toMatchSnapshot();
+    });
+    test('Can refresh token', async () => {
+        const options = getAuthistOptions();
+        const serverUrl = startServer(options);
+        const { credentials } = await emailPasswordProvider.signInWithEmailAndPassword(options)(email, password);
+        const { body } = await got<User & { password?: string }>(`${serverUrl}/refresh-token`, {
+            responseType: 'json',
+            searchParams: { refreshToken: credentials.refreshToken },
+        });
+        expect(Object.keys(body).sort()).toStrictEqual(['user', 'credentials'].sort());
     });
 });

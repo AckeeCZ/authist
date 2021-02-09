@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import { AuthistOptions, User } from './authist';
-import { verifyToken } from './credentialsService';
+import { AuthistOptions, Credentials, User } from './authist';
+import { refreshToken as refreshUserToken, verifyToken } from './credentialsService';
 import { ERROR_CODE, NotAuthenticated } from './error';
 
 export type BearerError = Error & { status?: number; statusCode?: number; toJSON?: any };
@@ -24,6 +24,21 @@ export const bearer = async (
     }
 };
 
+const refreshToken = async (
+    options: AuthistOptions,
+    refreshToken?: string
+): Promise<[BearerError | undefined, { credentials: Credentials; user: User } | undefined]> => {
+    if (!refreshToken) {
+        return [new NotAuthenticated(ERROR_CODE.MissingRefreshToken), undefined];
+    }
+    try {
+        const credentials = await refreshUserToken(options)(refreshToken);
+        return [undefined, credentials];
+    } catch (error) {
+        return [error, undefined];
+    }
+};
+
 export const expressBearer = (options: AuthistOptions) => async (
     request: Request & { user?: User },
     response: Response,
@@ -39,4 +54,20 @@ export const expressBearer = (options: AuthistOptions) => async (
     }
     request.user = user;
     next();
+};
+
+export const expressRefreshToken = (options: AuthistOptions) => async (
+    request: Request,
+    response: Response,
+    next: NextFunction
+) => {
+    const [error, credentials] = await refreshToken(options, request.body?.refreshToken ?? request.query.refreshToken);
+    if (error) {
+        if (options.onExpressAuthenticationFailure) {
+            return options.onExpressAuthenticationFailure(error, request, response, next);
+        }
+        response.statusCode = error.status ?? error.statusCode ?? 401;
+        return response.json({ message: error?.message });
+    }
+    return response.json(credentials);
 };

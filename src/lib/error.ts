@@ -5,6 +5,7 @@ export enum ErrorCode {
     UserNotFound = "It seems this user doesn't exist, are you sure you entered correct credentials?",
     AuthenticationRequired = 'You are not authenticated!',
     UnsupportedAuthorization = 'Unsupported authorization type!',
+    MissingRefreshToken = 'Refresh token is required parameter! Please send it in body or query as refreshToken.',
 }
 
 class GenericError extends Error {

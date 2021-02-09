@@ -1,7 +1,7 @@
 {
   "name": "authist",
   "description": "authist",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "Stefan Prokop <sprokop1010@seznam.cz>",
   "contributors": [],
   "main": "./dist/lib/index.js",

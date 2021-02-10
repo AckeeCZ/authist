@@ -1,35 +1,35 @@
 import { NextFunction, Request, Response } from 'express';
-import { expressBearer, expressChangePassword, expressRefreshToken, expressResetPassword } from './authMiddleware';
+import { expressBearer, expressRecoverPassword, expressRefreshToken, expressResetPassword } from './authMiddleware';
 import { refreshToken } from './credentialsService';
 import { EmailPasswordProviderOptions, signInWithEmailAndPassword } from './providers/emailPasswordProvider';
 import { FacebookProviderOptions, signInWithFacebook } from './providers/facebookProvider';
 import { GoogleSignInOptions, signInWithGoogle } from './providers/googleProvider';
-import { changePassword, resetPassword } from './resetPasswordService';
+import { recoverPassword, resetPassword } from './resetPasswordService';
 
 export const createAuthenticator = (options: AuthistOptions): Authenticator => ({
     expressBearer: expressBearer(options),
     expressRefreshToken: expressRefreshToken(options),
+    expressRecoverPassword: expressRecoverPassword(options),
     expressResetPassword: expressResetPassword(options),
-    expressChangePassword: expressChangePassword(options),
     signInWithEmailAndPassword: signInWithEmailAndPassword(options),
     signInWithFacebook: signInWithFacebook(options),
     signInWithGoogle: signInWithGoogle(options),
     refreshToken: refreshToken(options),
+    recoverPassword: recoverPassword(options),
     resetPassword: resetPassword(options),
-    changePassword: changePassword(options),
 });
 
 export interface Authenticator {
     expressBearer: ReturnType<typeof expressBearer>;
     expressRefreshToken: ReturnType<typeof expressRefreshToken>;
+    expressRecoverPassword: ReturnType<typeof expressRecoverPassword>;
     expressResetPassword: ReturnType<typeof expressResetPassword>;
-    expressChangePassword: ReturnType<typeof expressChangePassword>;
     signInWithEmailAndPassword: ReturnType<typeof signInWithEmailAndPassword>;
     signInWithFacebook: ReturnType<typeof signInWithFacebook>;
     signInWithGoogle: ReturnType<typeof signInWithGoogle>;
     refreshToken: ReturnType<typeof refreshToken>;
+    recoverPassword: ReturnType<typeof recoverPassword>;
     resetPassword: ReturnType<typeof resetPassword>;
-    changePassword: ReturnType<typeof changePassword>;
 }
 
 export interface TokenOptions {

@@ -33,9 +33,9 @@ export interface EmailPasswordProviderOptions {
     /** Generate custom reset password token */
     getResetPasswordToken?: (user: User) => Promise<string>;
     saveResetPasswordToken?: (token: string, user: User, req?: any) => Promise<void>;
-    /** Do custom reset password token validation eg. check if the token is expired */
+    /** Do custom reset password token validation before the password is changed (before the `updatePassword` function is called) eg. check if the token is expired */
     validateResetPasswordToken?: (token: string, req?: any) => Promise<User | undefined>;
-    /** Do custom validation of the changed password eg. is password longer then 8 characters */
+    /** Do custom validation of the changed password before the `updatePassword` function is called eg. is password longer then 8 characters */
     validatePassword?: (password: string, req?: any) => Promise<void>;
     updatePassword?: (hashedPassword: string, user: User, req?: any) => Promise<void>;
 }

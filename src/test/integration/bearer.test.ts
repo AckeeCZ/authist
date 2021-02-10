@@ -4,6 +4,7 @@ import { Server } from 'http';
 import { AddressInfo } from 'net';
 import { AuthistOptions, createAuthenticator, emailPasswordProvider, ErrorCode, User } from '../../lib';
 import { HashingAlgorithm } from '../../lib/providers/emailPasswordProvider';
+import { getResetToken } from '../../lib/resetPasswordService';
 import { getUserByEmail, getUserById, initDb, updateUser } from '../databaseUtils';
 
 let userModel: any;
@@ -135,7 +136,6 @@ describe('Bearer authentication middleware', () => {
         expect(Object.keys(body).sort()).toStrictEqual(['user', 'credentials'].sort());
     });
     describe('Reset password', () => {
-        let token: string;
         const startResetPasswordServer = (options: AuthistOptions) => {
             const authenticator = getAuthenticator(options);
             const server = express();
@@ -144,26 +144,24 @@ describe('Bearer authentication middleware', () => {
                 const credentials = await authenticator.signInWithEmailAndPassword(data.email, data.password, req);
                 res.json(credentials);
             });
+            server.get('/recover-password', authenticator.expressRecoverPassword);
             server.get('/reset-password', authenticator.expressResetPassword);
-            server.get('/change-password', authenticator.expressChangePassword);
             app = server.listen(0);
             return `http://0.0.0.0:${(app.address()! as AddressInfo).port}`;
         };
         afterEach(() => app.close());
-        test('User can reset password', async () => {
-            const serverUrl = startResetPasswordServer(getResetPasswordOptions());
-            const { body } = await got<{ token: string }>(`${serverUrl}/reset-password`, {
+        test('User can recover password', async () => {
+            const serverUrl = startResetPasswordServer(getRecoverPasswordOptions());
+            const { statusCode } = await got<{ token: string }>(`${serverUrl}/recover-password`, {
                 searchParams: { email },
                 responseType: 'json',
             });
-            expect(body.token).toBeTruthy();
-            expect(body.token.length).toBeGreaterThan(0);
-            token = body.token;
+            expect(statusCode).toBe(200);
         });
-        test('Non-existing user cannot reset password', async () => {
+        test('Non-existing user cannot recover password', async () => {
             try {
-                const serverUrl = startResetPasswordServer(getResetPasswordOptions());
-                await got(`${serverUrl}/reset-password`, {
+                const serverUrl = startResetPasswordServer(getRecoverPasswordOptions());
+                await got(`${serverUrl}/recover-password`, {
                     searchParams: { token: 'bad-token' },
                 });
                 throw new Error('Expected to throw');
@@ -171,10 +169,12 @@ describe('Bearer authentication middleware', () => {
                 expect(error.response.statusCode).toBe(401);
             }
         });
-        test('User can change password', async () => {
-            const url = startResetPasswordServer(getChangePasswordOptions());
+        test('User can reset password', async () => {
+            const options = getResetPasswordOptions();
+            const url = startResetPasswordServer(options);
             const psw = 'newPassword';
-            await got(`${url}/change-password`, {
+            const token = await getResetToken(options, { email } as any);
+            await got(`${url}/reset-password`, {
                 searchParams: { token, password: psw },
             });
             const { body } = await got<{ user: User }>(url, {
@@ -184,10 +184,10 @@ describe('Bearer authentication middleware', () => {
             expect(Object.keys(body).sort()).toStrictEqual(['user', 'credentials'].sort());
             expect(body.user.email).toBe(email);
         });
-        test('Non-existing user cannot change password', async () => {
+        test('Non-existing user cannot reset password', async () => {
             try {
-                const url = startResetPasswordServer(getChangePasswordOptions());
-                await got(`${url}/change-password`, {
+                const url = startResetPasswordServer(getResetPasswordOptions());
+                await got(`${url}/reset-password`, {
                     searchParams: { password, token: 'bad-token' },
                 });
                 throw new Error('Expected to throw');
@@ -198,14 +198,14 @@ describe('Bearer authentication middleware', () => {
     });
 });
 
-const getResetPasswordOptions = () => ({
+const getRecoverPasswordOptions = () => ({
     getUserById: getUserById(userModel),
     emailPassword: {
         getUserByEmail: getUserByEmail(userModel),
     },
 });
 
-const getChangePasswordOptions = () => ({
+const getResetPasswordOptions = () => ({
     getUserById: getUserById(userModel),
     emailPassword: {
         getUserByEmail: getUserByEmail(userModel),

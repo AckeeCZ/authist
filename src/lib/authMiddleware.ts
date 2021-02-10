@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { AuthistOptions, Credentials, User } from './authist';
 import { refreshToken as refreshUserToken, verifyToken } from './credentialsService';
 import { ERROR_CODE, NotAuthenticated } from './error';
-import { changePassword as changeUserPassword, resetPassword as resetUserPassword } from './resetPasswordService';
+import { recoverPassword as resetUserPassword, resetPassword as changeUserPassword } from './resetPasswordService';
 
 export type BearerError = Error & { status?: number; statusCode?: number; toJSON?: any };
 
@@ -40,7 +40,7 @@ const refreshToken = async (
     }
 };
 
-const resetPassword = async (
+const recoverPassword = async (
     options: AuthistOptions,
     email?: string
 ): Promise<[BearerError | undefined, { token: any } | undefined]> => {
@@ -55,14 +55,14 @@ const resetPassword = async (
     }
 };
 
-const changePassword = async (
+const resetPassword = async (
     options: AuthistOptions,
     data?: { token?: any; password?: string }
 ): Promise<[BearerError | undefined, undefined]> => {
     if (!data?.token) {
         return [new NotAuthenticated(ERROR_CODE.ResetPasswordTokenRequired), undefined];
     }
-    if (!data?.password) {
+    if (!data?.password && typeof data.password !== 'string') {
         return [new NotAuthenticated(ERROR_CODE.PasswordRequired), undefined];
     }
     try {
@@ -106,12 +106,12 @@ export const expressRefreshToken = (options: AuthistOptions) => async (
     return response.json(credentials);
 };
 
-export const expressResetPassword = (options: AuthistOptions) => async (
+export const expressRecoverPassword = (options: AuthistOptions) => async (
     request: Request,
     response: Response,
     next: NextFunction
 ) => {
-    const [error, token] = await resetPassword(options, request.body?.email ?? request.query.email);
+    const [error, token] = await recoverPassword(options, request.body?.email ?? request.query.email);
     if (error) {
         if (options.onExpressAuthenticationFailure) {
             return options.onExpressAuthenticationFailure(error, request, response, next);
@@ -122,12 +122,12 @@ export const expressResetPassword = (options: AuthistOptions) => async (
     return response.json(token);
 };
 
-export const expressChangePassword = (options: AuthistOptions) => async (
+export const expressResetPassword = (options: AuthistOptions) => async (
     request: Request,
     response: Response,
     next: NextFunction
 ) => {
-    const [error] = await changePassword(options, { ...request.body, ...request.query });
+    const [error] = await resetPassword(options, { ...request.body, ...request.query });
     if (error) {
         if (options.onExpressAuthenticationFailure) {
             return options.onExpressAuthenticationFailure(error, request, response, next);

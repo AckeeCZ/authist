@@ -7,23 +7,22 @@ import { handleError } from './providerUtils';
 
 const RESET_TOKEN_TYPE = 'resetPasswordToken';
 
-export const resetPassword = (options: AuthistOptions) => async (email: string, req?: any) => {
+export const recoverPassword = (options: AuthistOptions) => async (email: string, req?: any) => {
     try {
         const opts = options.emailPassword!;
         const user = await opts.getUserByEmail(email, req);
         if (!user) {
-            throw new NotAuthenticated(ERROR_CODE.UserNotFound);
+            return;
         }
         const token = await getResetToken(options, user);
         await (opts?.sendResetPasswordEmail ? opts.sendResetPasswordEmail(token, user, req) : Promise.resolve());
         await (opts.saveResetPasswordToken ? opts.saveResetPasswordToken(token, user, req) : Promise.resolve());
-        return { token };
     } catch (error) {
         return handleError(error, req, options);
     }
 };
 
-export const changePassword = (options: AuthistOptions) => async (token: string, password: string, req?: any) => {
+export const resetPassword = (options: AuthistOptions) => async (token: string, password: string, req?: any) => {
     try {
         const opts = options.emailPassword!;
         if (!opts.updatePassword) {
@@ -31,11 +30,11 @@ export const changePassword = (options: AuthistOptions) => async (token: string,
         }
         const user = await validateResetToken(token, options, req);
         if (!user) {
-            throw new NotAuthenticated(ERROR_CODE.UserNotFound);
+            throw new NotAuthenticated(ERROR_CODE.InvalidResetPasswordToken);
         }
         await (opts.validatePassword ? opts.validatePassword(password, req) : Promise.resolve());
         const hashedPassword = hashPassword(password, opts);
-        await (opts.updatePassword ? opts.updatePassword(hashedPassword, user, req) : Promise.resolve());
+        await opts.updatePassword(hashedPassword, user, req);
     } catch (error) {
         return handleError(error, req, options);
     }
@@ -49,7 +48,7 @@ const validateResetToken = async (token: string, options: AuthistOptions, req?: 
         const secret = getSecret(options, true);
         const decodedToken = verify(token, secret) as { email: string; type: string };
         if (decodedToken.type !== RESET_TOKEN_TYPE) {
-            throw new NotAuthenticated(ERROR_CODE.InvalidResetPasswordTokenType);
+            throw new NotAuthenticated(ERROR_CODE.InvalidResetPasswordToken);
         }
         if (!decodedToken.email) {
             throw new NotAuthenticated(ERROR_CODE.InvalidResetPasswordToken);

@@ -6,10 +6,9 @@ export enum ErrorCode {
     AuthenticationRequired = 'You are not authenticated!',
     UnsupportedAuthorization = 'Unsupported authorization type!',
     MissingRefreshToken = 'Refresh token is required parameter! Please send it in body or query as refreshToken.',
-    UserByResetTokenNotImplemented = "Function 'getUserByResetPasswordToken' is not implemented!",
-    UpdatePasswordNotImplemented = "Function 'updatePassword' is not implemented!",
-    ResetPasswordTokenRequired = 'Token is required field, please enter the token!',
-    InvalidResetPasswordTokenType = 'Token type is not valid type for change password request!',
+    UpdatePasswordNotImplemented = "Function 'updatePassword' is not implemented!" +
+        "Please add 'updatePassword' functionality under the 'emailPassword' provider options.",
+    ResetPasswordTokenRequired = 'Reset password token is required parameter! Please send it in body or query as token.',
     InvalidResetPasswordToken = 'Reset password token is not valid, some mandatory data are missing!',
 }
 

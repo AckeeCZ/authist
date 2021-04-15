@@ -15,7 +15,7 @@ export const createCredentials = (user: User, options: AuthistOptions): Credenti
             expiresIn: (options.token?.lifetimeMinutes || 60) * 60,
         }),
         refreshToken: sign(getPayload('refreshToken'), getSecret(options), {
-            expiresIn: (options.token?.lifetimeMinutes || 60) * 60,
+            expiresIn: (options.token?.refreshLifetimeMinutes || 60 * 24 * 60) * 60,
         }),
         expiresIn: (options.token?.lifetimeMinutes || 60) * 60,
         refreshExpiresIn: (options.token?.refreshLifetimeMinutes || 60 * 24 * 60) * 60,

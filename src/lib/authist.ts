@@ -1,7 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 import { expressBearer, expressRecoverPassword, expressRefreshToken, expressResetPassword } from './authMiddleware';
 import { refreshToken } from './credentialsService';
-import { EmailPasswordProviderOptions, signInWithEmailAndPassword } from './providers/emailPasswordProvider';
+import {
+    createUser,
+    EmailPasswordProviderOptions,
+    signInWithEmailAndPassword,
+} from './providers/emailPasswordProvider';
 import { FacebookProviderOptions, signInWithFacebook } from './providers/facebookProvider';
 import { GoogleSignInOptions, signInWithGoogle } from './providers/googleProvider';
 import { recoverPassword, resetPassword } from './resetPasswordService';
@@ -17,6 +21,7 @@ export const createAuthenticator = (options: AuthistOptions): Authenticator => (
     refreshToken: refreshToken(options),
     recoverPassword: recoverPassword(options),
     resetPassword: resetPassword(options),
+    createEmailPasswordUser: createUser(options),
 });
 
 export interface Authenticator {
@@ -30,6 +35,7 @@ export interface Authenticator {
     refreshToken: ReturnType<typeof refreshToken>;
     recoverPassword: ReturnType<typeof recoverPassword>;
     resetPassword: ReturnType<typeof resetPassword>;
+    createEmailPasswordUser: ReturnType<typeof createUser>;
 }
 
 export interface TokenOptions {

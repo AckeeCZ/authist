@@ -10,6 +10,8 @@ export enum ErrorCode {
         "Please add 'updatePassword' functionality under the 'emailPassword' provider options.",
     ResetPasswordTokenRequired = 'Reset password token is required parameter! Please send it in body or query as token.',
     InvalidResetPasswordToken = 'Reset password token is not valid, some mandatory data are missing!',
+    SaveNonExistingUserNotImplemented = "Function 'saveNonExistingUser' is not implemented!" +
+        "Please add 'saveNonExistingUser' functionality under the 'emailPassword' provider options.",
 }
 
 class GenericError extends Error {
@@ -42,6 +44,13 @@ export class NotAuthenticated extends GenericError {
     constructor(error?: typeof ErrorCode[keyof typeof ErrorCode]) {
         const [code, message] = GenericError.apiErrorData(error);
         super(message, 401, code);
+    }
+}
+
+export class BadRequest extends GenericError {
+    constructor(error?: typeof ErrorCode[keyof typeof ErrorCode]) {
+        const [code, message] = GenericError.apiErrorData(error);
+        super(message, 400, code);
     }
 }
 

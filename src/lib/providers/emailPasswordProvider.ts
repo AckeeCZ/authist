@@ -1,7 +1,7 @@
 import { compareSync, hashSync } from 'bcrypt';
 import { AuthistOptions, User, UserCredentials, UserInfo } from '../authist';
 import { createCredentials } from '../credentialsService';
-import { ERROR_CODE, NotAuthenticated } from '../error';
+import { BadRequest, ERROR_CODE, NotAuthenticated } from '../error';
 import { handleError, sendRegistrationEmail } from '../providerUtils';
 
 export enum HashingAlgorithm {
@@ -38,6 +38,7 @@ export interface EmailPasswordProviderOptions {
     /** Do custom validation of the changed password before the `updatePassword` function is called eg. is password longer then 8 characters */
     validatePassword?: (password: string, req?: any) => Promise<void>;
     updatePassword?: (hashedPassword: string, user: User, req?: any) => Promise<void>;
+    autoRegister?: boolean;
 }
 
 export const signInWithEmailAndPassword = (options: AuthistOptions) => async (
@@ -49,7 +50,7 @@ export const signInWithEmailAndPassword = (options: AuthistOptions) => async (
         const emailPasswordOptions = options.emailPassword!;
         let user = await emailPasswordOptions.getUserByEmail(email, req);
         if (!user) {
-            if (!emailPasswordOptions.saveNonExistingUser) {
+            if (!emailPasswordOptions.autoRegister || !emailPasswordOptions.saveNonExistingUser) {
                 throw new NotAuthenticated(ERROR_CODE.UserNotFound);
             }
             await validateUser({ email, password, request: req }, options);
@@ -130,6 +131,20 @@ export const validateUser = async (params: SignInParams, options: AuthistOptions
             : Promise.resolve());
     } catch (error) {
         return handleError(error, params.request, options);
+    }
+};
+
+export const createUser = (options: AuthistOptions) => async (data: any, req: any) => {
+    try {
+        const provider = options.emailPassword!;
+        if (!provider.saveNonExistingUser) {
+            throw new BadRequest(ERROR_CODE.SaveNonExistingUserNotImplemented);
+        }
+        const params = { email: data.email, password: data.password, request: req };
+        await validateUser(params, options);
+        return saveNonExistingUser({ ...data, ...params }, options);
+    } catch (error) {
+        return handleError(error, req, options);
     }
 };
 

@@ -21,6 +21,7 @@ describe('EmailPasswordProvider', () => {
                 getUserByEmail: getUserByEmail(userModel),
                 saveNonExistingUser: (data, hashedPassword, _req) =>
                     userModel.create({ email: data.email, password: hashedPassword }),
+                autoRegister: true,
             },
         });
         const { user, credentials } = await authenticator.signInWithEmailAndPassword(email, password);
@@ -60,6 +61,33 @@ describe('EmailPasswordProvider', () => {
             return;
         }
         throw Error();
+    });
+    test('User cannot be created without "saveNonExistingUser" func implemented', async () => {
+        try {
+            const authenticator = createAuthenticator({
+                getUserById: () => Promise.resolve(undefined),
+                emailPassword: {
+                    getUserByEmail: getUserByEmail(userModel),
+                },
+            });
+            await authenticator.createEmailPasswordUser({ email: 'test@example.com', password: 'password' }, undefined);
+        } catch (error) {
+            return expect(error.message).toMatch((ERROR_CODE.SaveNonExistingUserNotImplemented as any).message);
+        }
+        throw new Error('Expected to throw!');
+    });
+    test('User can be created', async () => {
+        const authenticator = createAuthenticator({
+            getUserById: () => Promise.resolve(undefined),
+            emailPassword: {
+                getUserByEmail: getUserByEmail(userModel),
+                saveNonExistingUser: (data, hashedPassword) =>
+                    userModel.create({ email: data.email, password: hashedPassword }),
+            },
+        });
+        const email = 'test@example.com';
+        const user = await authenticator.createEmailPasswordUser({ email, password: 'password' }, undefined);
+        expect(user.email).toBe(email);
     });
     describe('Reset password', () => {
         test('User can reset password', async () => {

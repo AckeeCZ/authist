@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>NotAuthenticated | Authist</title>
+	<title>BadRequest | Authist</title>
 	<meta name="description" content="Documentation for Authist">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../modules/error.html">error</a>
 				</li>
 				<li>
-					<a href="error.notauthenticated.html">NotAuthenticated</a>
+					<a href="error.badrequest.html">BadRequest</a>
 				</li>
 			</ul>
-			<h1>Class NotAuthenticated</h1>
+			<h1>Class BadRequest</h1>
 		</div>
 	</div>
 </header>
@@ -73,7 +73,7 @@
 						<span class="tsd-signature-type">GenericError</span>
 						<ul class="tsd-hierarchy">
 							<li>
-								<span class="target">NotAuthenticated</span>
+								<span class="target">BadRequest</span>
 							</li>
 						</ul>
 					</li>
@@ -86,22 +86,22 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="error.notauthenticated.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="error.badrequest.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-inherited">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="error.notauthenticated.html#errorcode" class="tsd-kind-icon">error<wbr>Code</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="error.notauthenticated.html#message" class="tsd-kind-icon">message</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="error.notauthenticated.html#status" class="tsd-kind-icon">status</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="error.badrequest.html#errorcode" class="tsd-kind-icon">error<wbr>Code</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="error.badrequest.html#message" class="tsd-kind-icon">message</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="error.badrequest.html#status" class="tsd-kind-icon">status</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-inherited">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="error.notauthenticated.html#tojson" class="tsd-kind-icon">toJSON</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="error.notauthenticated.html#apierrordata" class="tsd-kind-icon">api<wbr>Error<wbr>Data</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="error.badrequest.html#tojson" class="tsd-kind-icon">toJSON</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="error.badrequest.html#apierrordata" class="tsd-kind-icon">api<wbr>Error<wbr>Data</a></li>
 							</ul>
 						</section>
 					</div>
@@ -113,14 +113,14 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Not<wbr>Authenticated<span class="tsd-signature-symbol">(</span>error<span class="tsd-signature-symbol">?: </span><a href="../enums/error.errorcode.html#passwordmismatch" class="tsd-signature-type" data-tsd-kind="Enumeration member">PasswordMismatch</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#emailrequired" class="tsd-signature-type" data-tsd-kind="Enumeration member">EmailRequired</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#passwordrequired" class="tsd-signature-type" data-tsd-kind="Enumeration member">PasswordRequired</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#usernotfound" class="tsd-signature-type" data-tsd-kind="Enumeration member">UserNotFound</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#authenticationrequired" class="tsd-signature-type" data-tsd-kind="Enumeration member">AuthenticationRequired</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#unsupportedauthorization" class="tsd-signature-type" data-tsd-kind="Enumeration member">UnsupportedAuthorization</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#missingrefreshtoken" class="tsd-signature-type" data-tsd-kind="Enumeration member">MissingRefreshToken</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#updatepasswordnotimplemented" class="tsd-signature-type" data-tsd-kind="Enumeration member">UpdatePasswordNotImplemented</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#resetpasswordtokenrequired" class="tsd-signature-type" data-tsd-kind="Enumeration member">ResetPasswordTokenRequired</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#invalidresetpasswordtoken" class="tsd-signature-type" data-tsd-kind="Enumeration member">InvalidResetPasswordToken</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#savenonexistingusernotimplemented" class="tsd-signature-type" data-tsd-kind="Enumeration member">SaveNonExistingUserNotImplemented</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="error.notauthenticated.html" class="tsd-signature-type" data-tsd-kind="Class">NotAuthenticated</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Bad<wbr>Request<span class="tsd-signature-symbol">(</span>error<span class="tsd-signature-symbol">?: </span><a href="../enums/error.errorcode.html#passwordmismatch" class="tsd-signature-type" data-tsd-kind="Enumeration member">PasswordMismatch</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#emailrequired" class="tsd-signature-type" data-tsd-kind="Enumeration member">EmailRequired</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#passwordrequired" class="tsd-signature-type" data-tsd-kind="Enumeration member">PasswordRequired</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#usernotfound" class="tsd-signature-type" data-tsd-kind="Enumeration member">UserNotFound</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#authenticationrequired" class="tsd-signature-type" data-tsd-kind="Enumeration member">AuthenticationRequired</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#unsupportedauthorization" class="tsd-signature-type" data-tsd-kind="Enumeration member">UnsupportedAuthorization</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#missingrefreshtoken" class="tsd-signature-type" data-tsd-kind="Enumeration member">MissingRefreshToken</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#updatepasswordnotimplemented" class="tsd-signature-type" data-tsd-kind="Enumeration member">UpdatePasswordNotImplemented</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#resetpasswordtokenrequired" class="tsd-signature-type" data-tsd-kind="Enumeration member">ResetPasswordTokenRequired</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#invalidresetpasswordtoken" class="tsd-signature-type" data-tsd-kind="Enumeration member">InvalidResetPasswordToken</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#savenonexistingusernotimplemented" class="tsd-signature-type" data-tsd-kind="Enumeration member">SaveNonExistingUserNotImplemented</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="error.badrequest.html" class="tsd-signature-type" data-tsd-kind="Class">BadRequest</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overrides GenericError.constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/AckeeCZ/authist/blob/23ffc50/src/lib/error.ts#L43">error.ts:43</a></li>
+									<li>Defined in <a href="https://github.com/AckeeCZ/authist/blob/23ffc50/src/lib/error.ts#L50">error.ts:50</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -129,7 +129,7 @@
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> error: <a href="../enums/error.errorcode.html#passwordmismatch" class="tsd-signature-type" data-tsd-kind="Enumeration member">PasswordMismatch</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#emailrequired" class="tsd-signature-type" data-tsd-kind="Enumeration member">EmailRequired</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#passwordrequired" class="tsd-signature-type" data-tsd-kind="Enumeration member">PasswordRequired</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#usernotfound" class="tsd-signature-type" data-tsd-kind="Enumeration member">UserNotFound</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#authenticationrequired" class="tsd-signature-type" data-tsd-kind="Enumeration member">AuthenticationRequired</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#unsupportedauthorization" class="tsd-signature-type" data-tsd-kind="Enumeration member">UnsupportedAuthorization</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#missingrefreshtoken" class="tsd-signature-type" data-tsd-kind="Enumeration member">MissingRefreshToken</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#updatepasswordnotimplemented" class="tsd-signature-type" data-tsd-kind="Enumeration member">UpdatePasswordNotImplemented</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#resetpasswordtokenrequired" class="tsd-signature-type" data-tsd-kind="Enumeration member">ResetPasswordTokenRequired</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#invalidresetpasswordtoken" class="tsd-signature-type" data-tsd-kind="Enumeration member">InvalidResetPasswordToken</a><span class="tsd-signature-symbol"> | </span><a href="../enums/error.errorcode.html#savenonexistingusernotimplemented" class="tsd-signature-type" data-tsd-kind="Enumeration member">SaveNonExistingUserNotImplemented</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="error.notauthenticated.html" class="tsd-signature-type" data-tsd-kind="Class">NotAuthenticated</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="error.badrequest.html" class="tsd-signature-type" data-tsd-kind="Class">BadRequest</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -258,36 +258,36 @@
 					<li class=" tsd-kind-enum tsd-parent-kind-module">
 						<a href="../enums/error.errorcode.html" class="tsd-kind-icon">Error<wbr>Code</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="error.badrequest.html" class="tsd-kind-icon">Bad<wbr>Request</a>
-					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-module">
-						<a href="error.notauthenticated.html" class="tsd-kind-icon">Not<wbr>Authenticated</a>
+						<a href="error.badrequest.html" class="tsd-kind-icon">Bad<wbr>Request</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-								<a href="error.notauthenticated.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="error.badrequest.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="error.notauthenticated.html#errorcode" class="tsd-kind-icon">error<wbr>Code</a>
+								<a href="error.badrequest.html#errorcode" class="tsd-kind-icon">error<wbr>Code</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="error.notauthenticated.html#message" class="tsd-kind-icon">message</a>
+								<a href="error.badrequest.html#message" class="tsd-kind-icon">message</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="error.notauthenticated.html#status" class="tsd-kind-icon">status</a>
+								<a href="error.badrequest.html#status" class="tsd-kind-icon">status</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="error.notauthenticated.html#tojson" class="tsd-kind-icon">toJSON</a>
+								<a href="error.badrequest.html#tojson" class="tsd-kind-icon">toJSON</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-								<a href="error.notauthenticated.html#apierrordata" class="tsd-kind-icon">api<wbr>Error<wbr>Data</a>
+								<a href="error.badrequest.html#apierrordata" class="tsd-kind-icon">api<wbr>Error<wbr>Data</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="error.notauthenticated.html" class="tsd-kind-icon">Not<wbr>Authenticated</a>
+					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-module">
 						<a href="../modules/error.html#error_code" class="tsd-kind-icon">ERROR_<wbr>CODE</a>
 					</li>

@@ -1,4 +1,4 @@
-import { compareSync, hashSync } from 'bcrypt';
+import { compareSync, hashSync } from 'bcryptjs';
 import { AuthistOptions, User, UserCredentials, UserInfo } from '../authist';
 import { createCredentials } from '../credentialsService';
 import { BadRequest, ERROR_CODE, NotAuthenticated } from '../error';
